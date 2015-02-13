@@ -1,7 +1,9 @@
 package aleksey.sheyko.staticdemo;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -17,12 +19,20 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class AuthWebViewClient extends WebViewClient {
+public class AuthClientWebView extends WebViewClient {
 
-    public static final String TAG = AuthWebViewClient.class.getSimpleName();
+    private Context mContext;
 
     private String mTokenUrlString;
     private String mRequestToken;
+
+    private final SharedPreferences mSharedPref;
+
+    public AuthClientWebView(Context context) {
+        mContext = context;
+        mSharedPref = mContext.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -32,10 +42,8 @@ public class AuthWebViewClient extends WebViewClient {
                 + "&redirect_uri=" + Constants.CALLBACK_URL + "&grant_type=authorization_code";
 
         if (url.startsWith(Constants.CALLBACK_URL)) {
-            Log.i(TAG, "Url: " + url);
             String parts[] = url.split("=");
             mRequestToken = parts[1];  // This is the request token
-            Log.i(TAG, "Request token: " + mRequestToken);
             new GetTokenTask().execute();
             return true;
         }
@@ -61,12 +69,15 @@ public class AuthWebViewClient extends WebViewClient {
                 outputStreamWriter.flush();
                 String response = streamToString(httpsURLConnection.getInputStream());
                 JSONObject jsonObject = (JSONObject) new JSONTokener(response).nextValue();
-                String accessTokenString = jsonObject.getString("access_token"); //Here is your ACCESS TOKEN
+                String accessToken = jsonObject.getString("access_token"); //Here is your ACCESS TOKEN
                 String id = jsonObject.getJSONObject("user").getString("id");
                 String username = jsonObject.getJSONObject("user").getString("username"); //This is how you can get the user info. You can explore the JSON sent by Instagram as well to know what info you got in a response
-                Log.i(TAG, "Access token: " + accessTokenString + ",\n"
-                        + "id: " + id + ",\n"
-                        + "username: " + username);
+                mSharedPref.edit()
+                        .putString("access_token", accessToken)
+                        .putString("id", id)
+                        .putString("username", username)
+                        .apply();
+                mContext.startActivity(new Intent(mContext, StatsActivity.class));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,6 +109,12 @@ public class AuthWebViewClient extends WebViewClient {
                 e.printStackTrace();
             }
             return string;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
         }
     }
 }

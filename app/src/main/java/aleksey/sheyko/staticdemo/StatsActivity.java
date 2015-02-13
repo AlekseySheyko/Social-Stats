@@ -1,39 +1,34 @@
 package aleksey.sheyko.staticdemo;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
+import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
+public class StatsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_stats);
 
-        // Form urls for Instagram authentication
-        String authUrlString = Constants.AUTH_URL
-                + "?client_id=" + Constants.CLIENT_ID
-                + "&redirect_uri=" + Constants.CALLBACK_URL
-                + "&response_type=code";
+        SharedPreferences sharedPrefs = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String name = sharedPrefs.getString("username", "user");
 
-        // Display the webview for user to authenticate
-        WebView webView = (WebView) findViewById(R.id.webview);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new AuthClientWebView(this));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(authUrlString);
+        TextView textView = (TextView) findViewById(R.id.text);
+        textView.setText("Hello, " + name + "!");
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_stats, menu);
         return true;
     }
 

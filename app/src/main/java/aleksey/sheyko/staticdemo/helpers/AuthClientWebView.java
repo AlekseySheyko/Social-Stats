@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo;
+package aleksey.sheyko.staticdemo.helpers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,9 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import aleksey.sheyko.staticdemo.MainActivity;
+import aleksey.sheyko.staticdemo.R;
 
 public class AuthClientWebView extends WebViewClient {
 
@@ -65,11 +68,10 @@ public class AuthClientWebView extends WebViewClient {
                         "&grant_type=authorization_code" +
                         "&redirect_uri=" + Constants.CALLBACK_URL +
                         "&code=" + mRequestToken);
-
                 outputStreamWriter.flush();
                 String response = streamToString(httpsURLConnection.getInputStream());
                 JSONObject jsonObject = (JSONObject) new JSONTokener(response).nextValue();
-                String accessToken = jsonObject.getString("access_token"); //Here is your ACCESS TOKEN
+                String accessToken = jsonObject.getString("access_token"); // Here is your ACCESS TOKEN
                 String id = jsonObject.getJSONObject("user").getString("id");
                 String username = jsonObject.getJSONObject("user").getString("username"); //This is how you can get the user info. You can explore the JSON sent by Instagram as well to know what info you got in a response
                 mSharedPref.edit()
@@ -77,7 +79,8 @@ public class AuthClientWebView extends WebViewClient {
                         .putString("id", id)
                         .putString("username", username)
                         .apply();
-                mContext.startActivity(new Intent(mContext, StatsActivity.class));
+                mContext.startActivity(new Intent(mContext, MainActivity.class)
+                        .putExtra("username", username));
             } catch (Exception e) {
                 e.printStackTrace();
             }

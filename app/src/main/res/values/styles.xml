@@ -3,10 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="android:Theme.Holo.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="MyActionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showTitle</item>
     </style>
 
 </resources>

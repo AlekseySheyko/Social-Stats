@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
@@ -14,19 +16,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Form urls for Instagram authentication
-        String authUrlString = Constants.AUTH_URL
-                + "?client_id=" + Constants.CLIENT_ID
-                + "&redirect_uri=" + Constants.CALLBACK_URL
-                + "&response_type=code";
+        ArrayList<String> mCheeseList = new ArrayList<String>();
+        for (int i = 0; i < Cheeses.sCheeseStrings.length; ++i) {
+            mCheeseList.add(Cheeses.sCheeseStrings[i]);
+        }
 
-        // Display the webview for user to authenticate
-        WebView webView = (WebView) findViewById(R.id.webview);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new AuthClientWebView(this));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(authUrlString);
+        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.text_view, mCheeseList);
+        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
+
+        listView.setCheeseList(mCheeseList);
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
 
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
             return true;
         }
 

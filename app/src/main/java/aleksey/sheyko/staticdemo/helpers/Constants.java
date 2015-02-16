@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo;
+package aleksey.sheyko.staticdemo.helpers;
 
 public class Constants {
     // Instagram auth urls

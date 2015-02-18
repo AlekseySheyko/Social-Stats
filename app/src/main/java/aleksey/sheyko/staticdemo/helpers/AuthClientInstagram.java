@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
 import aleksey.sheyko.staticdemo.MainActivity;
 import aleksey.sheyko.staticdemo.R;
 
-public class AuthClientWebView extends WebViewClient {
+public class AuthClientInstagram extends WebViewClient {
 
     private Context mContext;
 
@@ -31,7 +31,7 @@ public class AuthClientWebView extends WebViewClient {
 
     private final SharedPreferences mSharedPref;
 
-    public AuthClientWebView(Context context) {
+    public AuthClientInstagram(Context context) {
         mContext = context;
         mSharedPref = mContext.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.staticdemo;
+package aleksey.sheyko.staticdemo.helpers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -65,7 +65,7 @@ public class DynamicListView extends ListView {
 
     private final int SMOOTH_SCROLL_AMOUNT_AT_EDGE = 15;
     private final int MOVE_DURATION = 150;
-    private final int LINE_THICKNESS = 15;
+    private final int LINE_THICKNESS = 5;
 
     public ArrayList<String> mCheeseList;
 
@@ -174,6 +174,7 @@ public class DynamicListView extends ListView {
         Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
         Paint paint = new Paint();
+
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(LINE_THICKNESS);
         paint.setColor(Color.BLACK);

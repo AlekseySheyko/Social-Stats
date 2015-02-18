@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.staticdemo;
+package aleksey.sheyko.staticdemo.helpers;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

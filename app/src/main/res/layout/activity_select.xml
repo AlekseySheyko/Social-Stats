@@ -1,0 +1,35 @@
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:numColumns="@integer/num_columns"
+    android:orientation="vertical"
+    >
+
+    <TableRow android:layout_width="match_parent">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/desc_twitter"
+            style="@style/ImageAccountType"/>
+
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/desc_instagram"
+            style="@style/ImageAccountType"/>
+    </TableRow>
+
+    <TableRow android:layout_width="match_parent"
+              android:layout_marginTop="16dp">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/desc_facebook"
+            style="@style/ImageAccountType"/>
+
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/desc_google"
+            style="@style/ImageAccountType"/>
+    </TableRow>
+
+</GridLayout>

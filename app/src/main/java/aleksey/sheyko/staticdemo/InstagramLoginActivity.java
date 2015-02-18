@@ -4,16 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-import aleksey.sheyko.staticdemo.helpers.AuthClientWebView;
+import aleksey.sheyko.staticdemo.helpers.AuthClientInstagram;
 import aleksey.sheyko.staticdemo.helpers.Constants;
 
 
-public class AuthActivity extends Activity {
+public class InstagramLoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.activity_instagram_auth);
 
         // Form urls for Instagram authentication
         String authUrlString = Constants.AUTH_URL
@@ -25,7 +25,7 @@ public class AuthActivity extends Activity {
         WebView webView = (WebView) findViewById(R.id.webview);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new AuthClientWebView(this));
+        webView.setWebViewClient(new AuthClientInstagram(this));
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(authUrlString);
     }

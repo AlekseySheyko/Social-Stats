@@ -19,8 +19,8 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import aleksey.sheyko.staticdemo.MainActivity;
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.activities.SocialActivity;
 
 public class AuthClientInstagram extends WebViewClient {
 
@@ -79,7 +79,7 @@ public class AuthClientInstagram extends WebViewClient {
                         .putString("id", id)
                         .putString("username", username)
                         .apply();
-                mContext.startActivity(new Intent(mContext, MainActivity.class)
+                mContext.startActivity(new Intent(mContext, SocialActivity.class)
                         .putExtra("username", username));
             } catch (Exception e) {
                 e.printStackTrace();

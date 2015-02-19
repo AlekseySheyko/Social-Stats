@@ -1,12 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="aleksey.sheyko.staticdemo.MainActivity">
+                android:orientation="vertical"
+                tools:context="aleksey.sheyko.staticdemo.activities.MainActivity">
 
     <aleksey.sheyko.staticdemo.helpers.DynamicListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listview"/>
 
-</FrameLayout>
+</LinearLayout>

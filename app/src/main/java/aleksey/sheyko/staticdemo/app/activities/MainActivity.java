@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.helpers.Accounts;
+import aleksey.sheyko.staticdemo.app.helpers.Data;
 import aleksey.sheyko.staticdemo.app.helpers.DynamicListView;
 import aleksey.sheyko.staticdemo.app.helpers.StableArrayAdapter;
 
@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ArrayList<String> mCheeseList = new ArrayList<String>();
-        Collections.addAll(mCheeseList, Accounts.sAccountStrings);
+        Collections.addAll(mCheeseList, Data.sAccountStrings);
 
         StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item, mCheeseList);
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);

@@ -16,7 +16,7 @@
 
 package aleksey.sheyko.staticdemo.app.helpers;
 
-public class Accounts {
+public class Data {
 
     public static final String[] sAccountStrings = {
             "Abbaye de Belloc", "Baby Swiss", "Cabecou", "Danablu"

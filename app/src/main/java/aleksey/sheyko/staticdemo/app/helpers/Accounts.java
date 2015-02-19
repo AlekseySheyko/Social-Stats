@@ -16,9 +16,9 @@
 
 package aleksey.sheyko.staticdemo.app.helpers;
 
-public class Cheeses {
+public class Accounts {
 
-    public static final String[] sCheeseStrings = {
+    public static final String[] sAccountStrings = {
             "Abbaye de Belloc", "Baby Swiss", "Cabecou", "Danablu"
     };
 

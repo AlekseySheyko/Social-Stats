@@ -21,7 +21,6 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.rest.twitter.RestClient;
 import io.fabric.sdk.android.Fabric;
 
 public class TwitterFragment extends Fragment {
@@ -64,6 +63,8 @@ public class TwitterFragment extends Fragment {
                             @Override
                             public void success(Result<User> userResult) {
                                 int count = userResult.data.favouritesCount;
+                                String name = userResult.data.screenName;
+                                Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -72,19 +73,12 @@ public class TwitterFragment extends Fragment {
                             }
                         }
                 );
-
-                Toast.makeText(getActivity(),
-                        "Id: " + result.data.getUserId(), Toast.LENGTH_SHORT).show();
-
-                new RestClient().getApiService().getDummieContent();
-
             }
 
             @Override
             public void failure(TwitterException exception) {
                 // Do something on failure
-                Toast.makeText(getActivity(), "Failure",
-                        Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Twitter auth request cancelled");
             }
         });
     }

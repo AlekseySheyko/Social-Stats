@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.activities;
+package aleksey.sheyko.staticdemo.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.helpers.Cheeses;
-import aleksey.sheyko.staticdemo.helpers.DynamicListView;
-import aleksey.sheyko.staticdemo.helpers.StableArrayAdapter;
+import aleksey.sheyko.staticdemo.app.helpers.Cheeses;
+import aleksey.sheyko.staticdemo.app.helpers.DynamicListView;
+import aleksey.sheyko.staticdemo.app.helpers.StableArrayAdapter;
 
 
 public class MainActivity extends Activity {

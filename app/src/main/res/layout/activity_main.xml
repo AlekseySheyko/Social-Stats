@@ -3,9 +3,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context="aleksey.sheyko.staticdemo.activities.MainActivity">
+                tools:context="aleksey.sheyko.staticdemo.app.activities.MainActivity">
 
-    <aleksey.sheyko.staticdemo.helpers.DynamicListView
+    <aleksey.sheyko.staticdemo.app.helpers.DynamicListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listview"/>

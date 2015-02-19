@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.activities;
+package aleksey.sheyko.staticdemo.app.activities;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.fragments.InstagramFragment;
-import aleksey.sheyko.staticdemo.fragments.TwitterFragment;
+import aleksey.sheyko.staticdemo.app.fragments.InstagramFragment;
+import aleksey.sheyko.staticdemo.app.fragments.TwitterFragment;
 
 public class SocialActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.activities;
+package aleksey.sheyko.staticdemo.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.fragments;
+package aleksey.sheyko.staticdemo.app.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.helpers.AuthClientInstagram;
-import aleksey.sheyko.staticdemo.helpers.Constants;
+import aleksey.sheyko.staticdemo.app.helpers.AuthClientInstagram;
+import aleksey.sheyko.staticdemo.app.helpers.Constants;
 
 public class InstagramFragment extends Fragment {
 

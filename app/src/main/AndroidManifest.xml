@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".app.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SelectActivity"
+            android:name=".app.activities.SelectActivity"
             android:label="@string/title_activity_account_type"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".app.activities.MainActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:noHistory="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".app.activities.MainActivity" />
         </activity>
 
         <meta-data
@@ -34,12 +34,12 @@
             android:value="143d23456e254b1c4cf31fba3722e9f640989752" />
 
         <activity
-            android:name=".activities.SocialActivity"
+            android:name=".app.activities.SocialActivity"
             android:label="@string/title_activity_social"
-            android:parentActivityName=".activities.SelectActivity" >
+            android:parentActivityName=".app.activities.SelectActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SelectActivity" />
+                android:value=".app.activities.SelectActivity" />
         </activity>
     </application>
 

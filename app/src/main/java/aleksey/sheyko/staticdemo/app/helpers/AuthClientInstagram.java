@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.helpers;
+package aleksey.sheyko.staticdemo.app.helpers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.activities.SocialActivity;
+import aleksey.sheyko.staticdemo.app.activities.SocialActivity;
 
 public class AuthClientInstagram extends WebViewClient {
 

@@ -30,7 +30,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + STATS_TABLE + "("
                     + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_LABEL + " TEXT," +
-                    COLUMN_VALUE + " TEXT," +
+                    COLUMN_VALUE + " INTEGER," +
                     COLUMN_FOREIGN_KEY_ACCOUNT + " INTEGER," +
                     "FOREIGN KEY(" + COLUMN_FOREIGN_KEY_ACCOUNT
                     + ") REFERENCES " + ACCOUNTS_TABLE + "(" + BaseColumns._ID + "))";

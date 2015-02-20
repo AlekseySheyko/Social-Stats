@@ -2,9 +2,7 @@ package aleksey.sheyko.staticdemo.models.twitter;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,13 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
+import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.staticdemo.models.AccountStats;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -76,23 +80,14 @@ public class TwitterFragment extends Fragment {
                         .verifyCredentials(false, false, new Callback<User>() {
                                     @Override
                                     public void success(Result<User> userResult) {
+                                        User user = userResult.data;
 
-                                        SharedPreferences sharedPrefs = PreferenceManager
-                                                .getDefaultSharedPreferences(getActivity());
+                                        String username = user.screenName;
+                                        int followers = user.followersCount;
+                                        int tweets = user.listedCount;
+                                        int following = user.favouritesCount;
 
-                                        int entryId = sharedPrefs.getInt("entry_id", 0);
-
-                                        String name = userResult.data.screenName;
-                                        int followers = userResult.data.followersCount;
-                                        int tweets = userResult.data.listedCount;
-                                        int following = userResult.data.favouritesCount;
-
-//                                        Account statSet = new Account(entryId, "Twitter", name,
-//                                                "Followers", followers, "Tweets", tweets, "Following", following);
-//                                        statSet.save();
-
-                                        sharedPrefs.edit().putInt(
-                                                "entry_id", entryId + 1).apply();
+                                        saveAccount(username, followers, tweets, following);
                                     }
 
                                     @Override
@@ -109,6 +104,19 @@ public class TwitterFragment extends Fragment {
                 Log.w(TAG, "Twitter auth request cancelled");
             }
         });
+    }
+
+    private void saveAccount(String username, int followers, int tweets, int following) {
+
+        List<AccountStats> statsList = new ArrayList<>();
+        statsList.add(new AccountStats("followers", followers));
+        statsList.add(new AccountStats("tweets", tweets));
+        statsList.add(new AccountStats("following", following));
+
+        Account account = new Account("Twitter", username, statsList);
+
+        AccountDataSource dataSource = new AccountDataSource(getActivity());
+        dataSource.create(account);
     }
 
     @Override

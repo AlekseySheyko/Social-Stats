@@ -7,12 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
 import aleksey.sheyko.staticdemo.app.adapters.StableArrayAdapter;
 import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
+import aleksey.sheyko.staticdemo.models.Account;
 
 
 public class MainActivity extends Activity {
@@ -21,21 +21,26 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AccountDataSource dataSource = new AccountDataSource(this);
+        ArrayList<Account> accounts = dataSource.read();
 
         ArrayList<String> mCheeseList = new ArrayList<String>();
-        Collections.addAll(mCheeseList, "AlekseySheyko", "aleksey_sheyko", "tropic2c");
+
+        for (int i = 0; i < accounts.size(); i++) {
+            mCheeseList.add(accounts.get(i).getUsername());
+        }
 
         StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item, mCheeseList);
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
 
         listView.setCheeseList(mCheeseList);
         listView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AccountDataSource dataSource = new AccountDataSource(this);
     }
 
     @Override

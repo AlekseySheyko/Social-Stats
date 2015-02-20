@@ -31,7 +31,9 @@ public class AccountDataSource {
     }
 
     public ArrayList<Account> read() {
-        return null;
+        ArrayList<Account> accounts = readAccounts();
+        addAccountStats(accounts);
+        return accounts;
     }
 
     public ArrayList<Account> readAccounts() {
@@ -49,11 +51,51 @@ public class AccountDataSource {
         ArrayList<Account> accounts = new ArrayList<Account>();
         if (cursor.moveToFirst()) {
             do {
-
+                Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
+                        getStringFromColumnName(cursor, SqliteHelper.COLUMN_SERVICE),
+                        getStringFromColumnName(cursor, SqliteHelper.COLUMN_USER_NAME),
+                        null);
+                accounts.add(account);
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        close(database);
+        return accounts;
+    }
 
-        return null;
+    public void addAccountStats(ArrayList<Account> accounts) {
+        SQLiteDatabase database = open();
+
+        for (Account account : accounts) {
+            ArrayList<AccountStats> statsList = new ArrayList<AccountStats>();
+            Cursor cursor = database.rawQuery(
+                    "SELECT * FROM " + SqliteHelper.STATS_TABLE +
+                            " WHERE ACCOUNT_ID = " + account.getId(), null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    AccountStats dataSet = new AccountStats(
+                        getIntFromColumnName(cursor, BaseColumns._ID),
+                            getStringFromColumnName(cursor, SqliteHelper.COLUMN_LABEL),
+                            getIntFromColumnName(cursor, SqliteHelper.COLUMN_VALUE)
+                    );
+                    statsList.add(dataSet);
+                } while (cursor.moveToNext());
+            }
+            account.setStatsList(statsList);
+            cursor.close();
+            close(database);
+        }
+    }
+
+    private int getIntFromColumnName(Cursor cursor, String columnName) {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        return cursor.getInt(columnIndex);
+    }
+
+    private String getStringFromColumnName(Cursor cursor, String columnName) {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        return cursor.getString(columnIndex);
     }
 
     public void create(Account account) {

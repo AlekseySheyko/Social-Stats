@@ -15,6 +15,12 @@ public class AccountStats implements Serializable {
         mValue = value;
     }
 
+    public AccountStats(int id, String label, int value) {
+        mId = id;
+        mLabel = label;
+        mValue = value;
+    }
+
     public int getId() {
         return mId;
     }

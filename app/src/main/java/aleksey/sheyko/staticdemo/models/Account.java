@@ -16,6 +16,13 @@ public class Account implements Serializable {
         mStatsList = statsList;
     }
 
+    public Account(int id, String service, String username, List<AccountStats> statsList) {
+        mId = id;
+        mService = service;
+        mUsername = username;
+        mStatsList = statsList;
+    }
+
     public int getId() {
         return mId;
     }

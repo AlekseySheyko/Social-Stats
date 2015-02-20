@@ -4,6 +4,7 @@
       <w>apiurl</w>
       <w>authurl</w>
       <w>callbackurl</w>
+      <w>crashlytics</w>
       <w>dummie</w>
       <w>entryid</w>
       <w>gridview</w>

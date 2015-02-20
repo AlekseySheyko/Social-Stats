@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.helpers;
+package aleksey.sheyko.staticdemo.model.instagram;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.app.activities.SocialActivity;
 
-public class AuthClientInstagram extends WebViewClient {
+public class WebviewAuthClient extends WebViewClient {
 
     private Context mContext;
 
@@ -31,7 +31,7 @@ public class AuthClientInstagram extends WebViewClient {
 
     private final SharedPreferences mSharedPref;
 
-    public AuthClientInstagram(Context context) {
+    public WebviewAuthClient(Context context) {
         mContext = context;
         mSharedPref = mContext.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);

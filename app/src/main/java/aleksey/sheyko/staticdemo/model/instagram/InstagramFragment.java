@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.fragments;
+package aleksey.sheyko.staticdemo.model.instagram;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.helpers.AuthClientInstagram;
-import aleksey.sheyko.staticdemo.app.helpers.Constants;
 
 public class InstagramFragment extends Fragment {
 
@@ -34,7 +32,7 @@ public class InstagramFragment extends Fragment {
         WebView webView = (WebView) view.findViewById(R.id.webview);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new AuthClientInstagram(getActivity()));
+        webView.setWebViewClient(new WebviewAuthClient(getActivity()));
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(authUrlString);
     }

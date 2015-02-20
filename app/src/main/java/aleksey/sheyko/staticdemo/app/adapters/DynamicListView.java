@@ -24,7 +24,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,6 +38,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import aleksey.sheyko.staticdemo.R;
 
 /**
  * The dynamic listview is an extension of listview that supports cell dragging
@@ -177,7 +178,8 @@ public class DynamicListView extends ListView {
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(LINE_THICKNESS);
-        paint.setColor(Color.BLACK);
+        paint.setColor(getResources().getColor(
+                        R.color.selected_item_border));
 
         can.drawBitmap(bitmap, 0, 0, null);
         can.drawRect(rect, paint);

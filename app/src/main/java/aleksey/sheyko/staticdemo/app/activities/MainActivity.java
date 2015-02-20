@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.app.adapters.AccountAdapter;
 import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
-import aleksey.sheyko.staticdemo.app.adapters.StableArrayAdapter;
 import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
 import aleksey.sheyko.staticdemo.models.Account;
 
@@ -30,16 +30,10 @@ public class MainActivity extends Activity {
         AccountDataSource dataSource = new AccountDataSource(this);
         ArrayList<Account> accounts = dataSource.read();
 
-        ArrayList<String> mCheeseList = new ArrayList<String>();
+        AccountAdapter adapter = new AccountAdapter(this,
+                R.layout.account_list_item, accounts);
 
-        for (int i = 0; i < accounts.size(); i++) {
-            mCheeseList.add(accounts.get(i).getUsername());
-        }
-
-        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item, mCheeseList);
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
-
-        listView.setCheeseList(mCheeseList);
         listView.setAdapter(adapter);
     }
 

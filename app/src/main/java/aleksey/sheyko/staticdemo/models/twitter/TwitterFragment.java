@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.model.twitter;
+package aleksey.sheyko.staticdemo.models.twitter;
 
 import android.app.Fragment;
 import android.content.Intent;

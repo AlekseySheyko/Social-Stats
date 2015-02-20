@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.model.instagram.InstagramFragment;
-import aleksey.sheyko.staticdemo.model.twitter.TwitterFragment;
+import aleksey.sheyko.staticdemo.models.instagram.InstagramFragment;
+import aleksey.sheyko.staticdemo.models.twitter.TwitterFragment;
 
 public class SocialActivity extends Activity {
 

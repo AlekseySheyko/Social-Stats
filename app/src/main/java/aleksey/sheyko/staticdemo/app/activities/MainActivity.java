@@ -12,6 +12,7 @@ import java.util.Collections;
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
 import aleksey.sheyko.staticdemo.app.adapters.StableArrayAdapter;
+import aleksey.sheyko.staticdemo.app.database.StatsDataSource;
 
 
 public class MainActivity extends Activity {
@@ -29,6 +30,12 @@ public class MainActivity extends Activity {
 
         listView.setCheeseList(mCheeseList);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatsDataSource dataSource = new StatsDataSource(this);
     }
 
     @Override

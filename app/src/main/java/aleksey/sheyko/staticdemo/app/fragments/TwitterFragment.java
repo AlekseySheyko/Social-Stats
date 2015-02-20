@@ -22,7 +22,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.model.DataSet;
+import aleksey.sheyko.staticdemo.model.Stats;
 import io.fabric.sdk.android.Fabric;
 
 public class TwitterFragment extends Fragment {
@@ -76,8 +76,9 @@ public class TwitterFragment extends Fragment {
                                         int tweets = userResult.data.listedCount;
                                         int following = userResult.data.favouritesCount;
 
-                                        new DataSet(entryId, "Twitter", name,
-                                                "Followers", followers, "Tweets", tweets, "Following", following).save();
+                                        Stats stats = new Stats(entryId, "Twitter", name,
+                                                "Followers", followers, "Tweets", tweets, "Following", following);
+                                        stats.save();
 
                                         sharedPrefs.edit().putInt(
                                                 "entry_id", entryId + 1).apply();

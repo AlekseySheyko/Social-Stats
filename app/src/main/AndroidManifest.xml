@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="aleksey.sheyko.staticdemo" >
+          xmlns:tools="http://schemas.android.com/tools"
+          package="aleksey.sheyko.staticdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,12 +10,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp">
+        android:name="com.orm.SugarApp"
+        tools:replace="android:icon">
 
-        <meta-data android:name="DATABASE" android:value="social_stats.db" />
-        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="DATABASE" android:value="stats.db" />
+        <meta-data android:name="VERSION" android:value="5" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="sheyko.aleksey" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="aleksey.sheyko" />
 
         <activity
             android:name=".app.activities.MainActivity"

@@ -22,5 +22,5 @@
     android:gravity="center_vertical"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:textColor="#ff656465"
+    android:textColor="#ff8c8b8c"
 />

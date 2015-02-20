@@ -3,8 +3,8 @@ package aleksey.sheyko.staticdemo.app.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 
 import aleksey.sheyko.staticdemo.R;
 
@@ -14,10 +14,14 @@ public class SelectActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels * 0.80);
+        int screenHeight = (int) (metrics.widthPixels * 0.80);
+
         setContentView(R.layout.activity_select);
 
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        getWindow().setLayout(screenWidth, screenHeight);
     }
 
     public void addAccount(View view) {

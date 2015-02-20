@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.staticdemo.app.helpers;
+package aleksey.sheyko.staticdemo.app.adapters;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

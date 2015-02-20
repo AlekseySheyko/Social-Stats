@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -21,8 +23,10 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
+import java.util.List;
+
 import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.model.Stats;
+import aleksey.sheyko.staticdemo.model.Account;
 import io.fabric.sdk.android.Fabric;
 
 public class TwitterFragment extends Fragment {
@@ -46,6 +50,17 @@ public class TwitterFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Initialise list with existing accounts
+        List<Account> accountList =
+                Account.listAll(Account.class);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, namesArray);
+
+        ListView listView = (ListView) view.findViewById(R.id.listview);
+        listView.setAdapter(adapter);
+
+        // Give the ability to add new account
         TwitterAuthConfig authConfig =
                 new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(getActivity(), new Twitter(authConfig));
@@ -76,9 +91,9 @@ public class TwitterFragment extends Fragment {
                                         int tweets = userResult.data.listedCount;
                                         int following = userResult.data.favouritesCount;
 
-                                        Stats stats = new Stats(entryId, "Twitter", name,
+                                        Account statSet = new Account(entryId, "Twitter", name,
                                                 "Followers", followers, "Tweets", tweets, "Following", following);
-                                        stats.save();
+                                        statSet.save();
 
                                         sharedPrefs.edit().putInt(
                                                 "entry_id", entryId + 1).apply();

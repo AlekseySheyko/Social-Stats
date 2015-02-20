@@ -2,7 +2,7 @@ package aleksey.sheyko.staticdemo.model;
 
 import com.orm.SugarRecord;
 
-public class Stats extends SugarRecord<Stats> {
+public class Account extends SugarRecord<Account> {
 
     int mEntryId;
     String mService;
@@ -14,10 +14,10 @@ public class Stats extends SugarRecord<Stats> {
     int mValue2;
     int mValue3;
 
-    public Stats() {
+    public Account() {
     }
 
-    public Stats(int entryId, String service, String username, String label1, int value1, String label2, int value2, String label3, int value3) {
+    public Account(int entryId, String service, String username, String label1, int value1, String label2, int value2, String label3, int value3) {
         mEntryId = entryId;
         mService = service;
         mUsername = username;
@@ -27,5 +27,9 @@ public class Stats extends SugarRecord<Stats> {
         mValue1 = value1;
         mValue2 = value2;
         mValue3 = value3;
+    }
+
+    public String getUsername() {
+        return mUsername;
     }
 }

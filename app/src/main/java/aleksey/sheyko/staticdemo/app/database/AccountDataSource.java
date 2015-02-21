@@ -81,8 +81,8 @@ public class AccountDataSource {
             }
             account.setStatsList(statsList);
             cursor.close();
-            close(database);
         }
+        close(database);
     }
 
     private int getIntFromColumnName(Cursor cursor, String columnName) {

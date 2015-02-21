@@ -32,23 +32,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center_vertical"
-        android:gravity="center_horizontal">
+        android:gravity="right"
+        android:layout_marginTop="2dp">
 
         <TextView
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="followers"
-            android:textColor="#ff8c8b8c"/>
+            android:textColor="#ff8c8b8c"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="372"
-            android:textColor="#ff929192"
-            android:textSize="24sp"
-            android:layout_marginTop="-4dp"/>
+            android:textColor="#ffa4a3a4"
+            android:textSize="30sp"
+            android:layout_marginTop="-8dp"/>
 
         </LinearLayout>
 

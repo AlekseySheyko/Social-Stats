@@ -22,15 +22,15 @@ public class AccountAdapter extends ArrayAdapter<Account> {
 
     private Context mContext;
     // Declaring our ArrayList of items
-    private ArrayList<Account> mObjects;
+    private ArrayList<Account> mAccounts;
 
-    public AccountAdapter(Context context, int textViewResourceId, ArrayList<Account> objects) {
-        super(context, textViewResourceId, objects);
+    public AccountAdapter(Context context, int textViewResourceId, ArrayList<Account> accounts) {
+        super(context, textViewResourceId, accounts);
         mContext = context;
-        mObjects = objects;
+        mAccounts = accounts;
 
-        for (int i = 0; i < objects.size(); ++i) {
-            mIdMap.put(objects.get(i).toString(), i);
+        for (int i = 0; i < accounts.size(); ++i) {
+            mIdMap.put(accounts.get(i).toString(), i);
         }
     }
 
@@ -45,7 +45,7 @@ public class AccountAdapter extends ArrayAdapter<Account> {
             view = inflater.inflate(R.layout.account_list_item, parent, false);
         }
         // Recall that the variable position is sent in as an argument to this method.
-        Account account = mObjects.get(position);
+        Account account = mAccounts.get(position);
 
         if (account != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.username);

@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,7 +19,8 @@ import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
 import aleksey.sheyko.staticdemo.models.Account;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,11 @@ public class MainActivity extends Activity {
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
         listView.setCheeseList(accounts);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
     }
 
     @Override

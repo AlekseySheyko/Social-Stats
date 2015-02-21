@@ -114,23 +114,12 @@ public class DynamicListView extends ListView {
     }
 
     public void init(Context context) {
-        setOnItemClickListener(mOnItemClickListener);
+        setOnItemClickListener((OnItemClickListener) context);
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         mSmoothScrollAmountAtEdge = (int)(SMOOTH_SCROLL_AMOUNT_AT_EDGE / metrics.density);
     }
-
-    /**
-     * Listens for clicks on any items in the listview. When a cell has
-     * been selected, the stats values on the right will be updated.
-     */
-    private AdapterView.OnItemClickListener mOnItemClickListener =
-            new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                }
-            };
 
     /**
      * Listens for long clicks on any items in the listview. When a cell has

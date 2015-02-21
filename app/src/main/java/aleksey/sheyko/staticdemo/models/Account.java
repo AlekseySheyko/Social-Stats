@@ -9,6 +9,7 @@ public class Account implements Serializable {
     private String mService;
     private String mUsername;
     private List<AccountStats> mStatsList;
+    private int mShowingDataSet;
 
     public Account(String service, String username, List<AccountStats> statsList) {
         mService = service;
@@ -49,5 +50,18 @@ public class Account implements Serializable {
 
     public void setStatsList(ArrayList<AccountStats> statsList) {
         mStatsList = statsList;
+    }
+
+    public int getNextDataSet() {
+        return mShowingDataSet;
+    }
+
+    public void notifyDataSetChanged() {
+
+        if (mShowingDataSet < mStatsList.size() - 1) {
+            mShowingDataSet++;
+        } else {
+            mShowingDataSet = 0;
+        }
     }
 }

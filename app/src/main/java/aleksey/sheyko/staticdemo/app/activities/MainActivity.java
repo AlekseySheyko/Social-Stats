@@ -8,19 +8,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.app.adapters.AccountAdapter;
 import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
 import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
 import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.staticdemo.models.AccountStats;
 
 
 public class MainActivity extends Activity
         implements OnItemClickListener {
+
+    private DynamicListView mListView;
+    private AccountAdapter mAdapter;
+    private ArrayList<Account> mAccounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +38,34 @@ public class MainActivity extends Activity
         super.onResume();
 
         AccountDataSource dataSource = new AccountDataSource(this);
-        ArrayList<Account> accounts = dataSource.read();
+        mAccounts = dataSource.read();
 
-        AccountAdapter adapter = new AccountAdapter(this,
-                R.layout.account_list_item, accounts);
+        mAdapter = new AccountAdapter(this,
+                R.layout.account_list_item, mAccounts);
 
-        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
-        listView.setCheeseList(accounts);
-        listView.setAdapter(adapter);
+        mListView = (DynamicListView) findViewById(R.id.listview);
+        mListView.setCheeseList(mAccounts);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Account currentAccount = mAccounts.get(position);
+        currentAccount.notifyDataSetChanged();
+
+        List<AccountStats> statsList = new ArrayList<>();
+
+        statsList.add(new AccountStats(
+                currentAccount.getStatsList().get(currentAccount.getNextDataSet()).getLabel(),
+                currentAccount.getStatsList().get(currentAccount.getNextDataSet()).getValue()));
+
+        Account account = new Account(currentAccount.getService(),
+                currentAccount.getUsername(),
+                statsList);
+
+        mAccounts.add(account);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

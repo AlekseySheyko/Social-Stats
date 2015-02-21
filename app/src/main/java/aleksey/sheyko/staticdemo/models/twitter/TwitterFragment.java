@@ -80,8 +80,9 @@ public class TwitterFragment extends Fragment {
                                         int followers = user.followersCount;
                                         int tweets = user.listedCount;
                                         int following = user.favouritesCount;
+                                        String avatarUrl = user.profileImageUrl;
 
-                                        saveAccount(username, followers, tweets, following);
+                                        saveAccount(username, followers, tweets, following, avatarUrl);
                                     }
 
                                     @Override
@@ -108,14 +109,14 @@ public class TwitterFragment extends Fragment {
         });
     }
 
-    private void saveAccount(String username, int followers, int tweets, int following) {
+    private void saveAccount(String username, int followers, int tweets, int following, String avatarUrl) {
 
         List<AccountStats> statsList = new ArrayList<>();
         statsList.add(new AccountStats("followers", followers));
         statsList.add(new AccountStats("tweets", tweets));
         statsList.add(new AccountStats("following", following));
 
-        Account account = new Account("Twitter", username, statsList);
+        Account account = new Account("Twitter", username, statsList, avatarUrl);
 
         AccountDataSource dataSource = new AccountDataSource(getActivity());
         dataSource.create(account);

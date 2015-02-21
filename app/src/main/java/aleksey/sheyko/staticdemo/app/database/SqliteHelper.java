@@ -14,12 +14,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SERVICE = "SERVICE";
     public static final String COLUMN_USER_NAME = "NAME";
     public static final String COLUMN_DATA_SETS = "DATA_SETS";
+    public static final String COLUMN_AVATAR_URL = "AVATAR_URL";
     public static String CREATE_ACCOUNTS =
             "CREATE TABLE " + ACCOUNTS_TABLE + "("
                     + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_SERVICE + " TEXT," +
                     COLUMN_USER_NAME + " TEXT," +
-                    COLUMN_DATA_SETS + " TEXT)";
+                    COLUMN_DATA_SETS + " TEXT," +
+                    COLUMN_AVATAR_URL + " TEXT)";
 
     //Stats Table functionality
     public static final String STATS_TABLE = "STATS";
@@ -46,7 +48,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase database, int i, int i2) {
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
     }
 }

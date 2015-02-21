@@ -9,19 +9,22 @@ public class Account implements Serializable {
     private String mService;
     private String mUsername;
     private List<AccountStats> mStatsList;
+    private String mAvatarUrl;
     private int mShowingDataSet;
 
-    public Account(String service, String username, List<AccountStats> statsList) {
+    public Account(String service, String username, List<AccountStats> statsList, String avatarUrl) {
         mService = service;
         mUsername = username;
         mStatsList = statsList;
+        mAvatarUrl = avatarUrl;
     }
 
-    public Account(int id, String service, String username, List<AccountStats> statsList) {
+    public Account(int id, String service, String username, List<AccountStats> statsList, String avatarUrl) {
         mId = id;
         mService = service;
         mUsername = username;
         mStatsList = statsList;
+        mAvatarUrl = avatarUrl;
     }
 
     public int getId() {
@@ -42,6 +45,10 @@ public class Account implements Serializable {
 
     public void setStatsList(ArrayList<AccountStats> statsList) {
         mStatsList = statsList;
+    }
+
+    public String getAvatarUrl() {
+        return mAvatarUrl;
     }
 
     public int getShowingDataSet() {

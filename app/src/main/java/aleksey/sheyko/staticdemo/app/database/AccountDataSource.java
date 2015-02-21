@@ -39,7 +39,7 @@ public class AccountDataSource {
 
         Cursor cursor = database.query(
                 SQLiteHelper.ACCOUNTS_TABLE,
-                new String[]{SQLiteHelper.COLUMN_USER_NAME, BaseColumns._ID, SQLiteHelper.COLUMN_SERVICE},
+                new String[]{SQLiteHelper.COLUMN_USER_NAME, BaseColumns._ID, SQLiteHelper.COLUMN_SERVICE, SQLiteHelper.COLUMN_AVATAR_URL},
                 null, //selection
                 null, //selection args
                 null, //group by
@@ -52,7 +52,8 @@ public class AccountDataSource {
                 Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_SERVICE),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_USER_NAME),
-                        null);
+                        null,
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL));
                 accounts.add(account);
             } while (cursor.moveToNext());
         }

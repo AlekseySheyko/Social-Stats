@@ -110,6 +110,7 @@ public class WebviewAuthClient extends WebViewClient {
                 responseObject = (JSONObject) new JSONTokener(response).nextValue();
 
                 JSONObject dataObject = responseObject.getJSONObject("data");
+                String avatarUrl = dataObject.getString("profile_picture");
                 JSONObject countsObject = dataObject.getJSONObject("counts");
 
                 int media = countsObject.getInt("media");
@@ -121,7 +122,7 @@ public class WebviewAuthClient extends WebViewClient {
                 statsList.add(new AccountStats("media", media));
                 statsList.add(new AccountStats("following", following));
 
-                Account account = new Account("Instagram", username, statsList);
+                Account account = new Account("Instagram", username, statsList, avatarUrl);
 
                 AccountDataSource dataSource = new AccountDataSource(mContext);
                 dataSource.create(account);

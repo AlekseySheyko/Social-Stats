@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-public class SqliteHelper extends SQLiteOpenHelper {
+public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "stats.db";
     public static final int DB_VERSION = 1;
@@ -35,7 +35,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
                     "FOREIGN KEY(" + COLUMN_FOREIGN_KEY_ACCOUNT
                     + ") REFERENCES " + ACCOUNTS_TABLE + "(" + BaseColumns._ID + "))";
 
-    public SqliteHelper(Context context) {
+    public SQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

@@ -13,17 +13,15 @@ import aleksey.sheyko.staticdemo.models.AccountStats;
 
 public class AccountDataSource {
 
-    private Context mContext;
-    private SqliteHelper mSqliteHelper;
+    private SQLiteHelper mSQLiteHelper;
 
     public AccountDataSource(Context context) {
 
-        mContext = context;
-        mSqliteHelper = new SqliteHelper(context);
+        mSQLiteHelper = new SQLiteHelper(context);
     }
 
     private SQLiteDatabase open() {
-        return mSqliteHelper.getWritableDatabase();
+        return mSQLiteHelper.getWritableDatabase();
     }
 
     private void close(SQLiteDatabase database) {
@@ -40,8 +38,8 @@ public class AccountDataSource {
         SQLiteDatabase database = open();
 
         Cursor cursor = database.query(
-                SqliteHelper.ACCOUNTS_TABLE,
-                new String[] {SqliteHelper.COLUMN_SERVICE, BaseColumns._ID, SqliteHelper.COLUMN_USER_NAME},
+                SQLiteHelper.ACCOUNTS_TABLE,
+                new String[]{SQLiteHelper.COLUMN_USER_NAME, BaseColumns._ID, SQLiteHelper.COLUMN_SERVICE},
                 null, //selection
                 null, //selection args
                 null, //group by
@@ -52,8 +50,8 @@ public class AccountDataSource {
         if (cursor.moveToFirst()) {
             do {
                 Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
-                        getStringFromColumnName(cursor, SqliteHelper.COLUMN_SERVICE),
-                        getStringFromColumnName(cursor, SqliteHelper.COLUMN_USER_NAME),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_SERVICE),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_USER_NAME),
                         null);
                 accounts.add(account);
             } while (cursor.moveToNext());
@@ -69,16 +67,15 @@ public class AccountDataSource {
         for (Account account : accounts) {
             ArrayList<AccountStats> statsList = new ArrayList<AccountStats>();
             Cursor cursor = database.rawQuery(
-                    "SELECT * FROM " + SqliteHelper.STATS_TABLE +
+                    "SELECT * FROM " + SQLiteHelper.STATS_TABLE +
                             " WHERE ACCOUNT_ID = " + account.getId(), null);
 
             if (cursor.moveToFirst()) {
                 do {
                     AccountStats dataSet = new AccountStats(
-                        getIntFromColumnName(cursor, BaseColumns._ID),
-                            getStringFromColumnName(cursor, SqliteHelper.COLUMN_LABEL),
-                            getIntFromColumnName(cursor, SqliteHelper.COLUMN_VALUE)
-                    );
+                            getIntFromColumnName(cursor, BaseColumns._ID),
+                            getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LABEL),
+                            getIntFromColumnName(cursor, SQLiteHelper.COLUMN_VALUE));
                     statsList.add(dataSet);
                 } while (cursor.moveToNext());
             }
@@ -103,17 +100,17 @@ public class AccountDataSource {
         database.beginTransaction();
 
         ContentValues accountValues = new ContentValues();
-        accountValues.put(SqliteHelper.COLUMN_SERVICE, account.getService());
-        accountValues.put(SqliteHelper.COLUMN_USER_NAME, account.getUsername());
-        long accountID = database.insert(SqliteHelper.ACCOUNTS_TABLE, null, accountValues);
+        accountValues.put(SQLiteHelper.COLUMN_SERVICE, account.getService());
+        accountValues.put(SQLiteHelper.COLUMN_USER_NAME, account.getUsername());
+        long accountID = database.insert(SQLiteHelper.ACCOUNTS_TABLE, null, accountValues);
 
-        for (AccountStats accountDataSet : account.getStatsList()) {
+        for (AccountStats dataSet : account.getStatsList()) {
             ContentValues statsValues = new ContentValues();
-            statsValues.put(SqliteHelper.COLUMN_LABEL, accountDataSet.getLabel());
-            statsValues.put(SqliteHelper.COLUMN_VALUE, accountDataSet.getValue());
-            statsValues.put(SqliteHelper.COLUMN_FOREIGN_KEY_ACCOUNT, accountID);
+            statsValues.put(SQLiteHelper.COLUMN_LABEL, dataSet.getLabel());
+            statsValues.put(SQLiteHelper.COLUMN_VALUE, dataSet.getValue());
+            statsValues.put(SQLiteHelper.COLUMN_FOREIGN_KEY_ACCOUNT, accountID);
 
-            database.insert(SqliteHelper.STATS_TABLE, null, statsValues);
+            database.insert(SQLiteHelper.STATS_TABLE, null, statsValues);
         }
 
         database.setTransactionSuccessful();

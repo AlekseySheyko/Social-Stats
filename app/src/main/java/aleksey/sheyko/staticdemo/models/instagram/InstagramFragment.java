@@ -4,8 +4,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 
 import aleksey.sheyko.staticdemo.R;
 
@@ -19,8 +21,20 @@ public class InstagramFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Button loginButton = (Button) view.findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn(view);
+            }
+        });
+    }
+
+    private void signIn(View view) {
+        getActivity().getActionBar().hide();
 
         // Form urls for Instagram authentication
         String authUrlString = Constants.AUTH_URL
@@ -30,6 +44,7 @@ public class InstagramFragment extends Fragment {
 
         // Display the webview for user to authenticate
         WebView webView = (WebView) view.findViewById(R.id.webview);
+        webView.setVisibility(View.VISIBLE);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setWebViewClient(new WebviewAuthClient(getActivity()));

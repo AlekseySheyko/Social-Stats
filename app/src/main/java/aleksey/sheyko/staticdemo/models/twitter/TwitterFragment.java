@@ -60,7 +60,7 @@ public class TwitterFragment extends Fragment {
         Fabric.with(getActivity(), new Twitter(authConfig));
 
         twitterLoginButton = (TwitterLoginButton)
-                view.findViewById(R.id.twitter_login_button);
+                view.findViewById(R.id.twitterLoginButton);
         twitterLoginButton.setEnabled(true);
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
@@ -100,7 +100,7 @@ public class TwitterFragment extends Fragment {
             }
         });
 
-        Button loginButton = (Button) view.findViewById(R.id.login_button);
+        Button loginButton = (Button) view.findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

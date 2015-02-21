@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -37,7 +39,7 @@ public class TwitterFragment extends Fragment {
     private static final String TWITTER_KEY = "bmQCF0w32m1awcIOIua56yPqa";
     private static final String TWITTER_SECRET = "8XjePz2wz3TjuvRBuN5fk6O1WzthXYEEvB6AVk1xayVUq5hhnY";
 
-    private TwitterLoginButton loginButton;
+    private TwitterLoginButton twitterLoginButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,10 +59,10 @@ public class TwitterFragment extends Fragment {
                 new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(getActivity(), new Twitter(authConfig));
 
-        loginButton = (TwitterLoginButton)
-                view.findViewById(R.id.login_button);
-        loginButton.setEnabled(true);
-        loginButton.setCallback(new Callback<TwitterSession>() {
+        twitterLoginButton = (TwitterLoginButton)
+                view.findViewById(R.id.twitter_login_button);
+        twitterLoginButton.setEnabled(true);
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a
@@ -96,6 +98,14 @@ public class TwitterFragment extends Fragment {
                 Log.w(TAG, "Twitter auth request cancelled");
             }
         });
+
+        Button loginButton = (Button) view.findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                twitterLoginButton.performClick();
+            }
+        });
     }
 
     private void saveAccount(String username, int followers, int tweets, int following) {
@@ -122,7 +132,7 @@ public class TwitterFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Pass the activity result to the login button.
-        loginButton.onActivityResult(requestCode, resultCode,
+        twitterLoginButton.onActivityResult(requestCode, resultCode,
                 data);
     }
 }

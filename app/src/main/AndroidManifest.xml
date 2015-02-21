@@ -34,6 +34,7 @@
         </activity>
         <activity
             android:name=".app.activities.SocialActivity"
+            android:theme="@style/SocialTheme"
             android:parentActivityName=".app.activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

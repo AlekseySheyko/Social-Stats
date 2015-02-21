@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/ic_launcher"
         android:layout_gravity="center_vertical"/>
 
@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
         android:textColor="#ff8c8b8c"
         android:text="AlekseySheyko"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginRight="8dp"
         android:singleLine="true"/>
 

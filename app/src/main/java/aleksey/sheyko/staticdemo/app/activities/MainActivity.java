@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
                 R.layout.account_list_item, accounts);
 
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
+        listView.setCheeseList(accounts);
         listView.setAdapter(adapter);
     }
 

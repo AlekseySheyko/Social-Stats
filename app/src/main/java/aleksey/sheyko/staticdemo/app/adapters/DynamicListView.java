@@ -41,6 +41,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.models.Account;
 
 /**
  * The dynamic listview is an extension of listview that supports cell dragging
@@ -69,7 +70,7 @@ public class DynamicListView extends ListView {
     private final int MOVE_DURATION = 150;
     private final int LINE_THICKNESS = 5;
 
-    public ArrayList<String> mCheeseList;
+    public ArrayList<Account> mCheeseList;
 
     private int mLastEventY = -1;
 
@@ -113,11 +114,23 @@ public class DynamicListView extends ListView {
     }
 
     public void init(Context context) {
+        setOnItemClickListener(mOnItemClickListener);
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         mSmoothScrollAmountAtEdge = (int)(SMOOTH_SCROLL_AMOUNT_AT_EDGE / metrics.density);
     }
+
+    /**
+     * Listens for clicks on any items in the listview. When a cell has
+     * been selected, the stats values on the right will be updated.
+     */
+    private AdapterView.OnItemClickListener mOnItemClickListener =
+            new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                }
+            };
 
     /**
      * Listens for long clicks on any items in the listview. When a cell has
@@ -504,7 +517,7 @@ public class DynamicListView extends ListView {
         return false;
     }
 
-    public void setCheeseList(ArrayList<String> cheeseList) {
+    public void setCheeseList(ArrayList<Account> cheeseList) {
         mCheeseList = cheeseList;
     }
 

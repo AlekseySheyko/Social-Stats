@@ -3,6 +3,9 @@ package aleksey.sheyko.staticdemo.app.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,16 +22,21 @@ import aleksey.sheyko.staticdemo.models.Account;
 
 
 public class MainActivity extends Activity
-        implements OnItemClickListener {
+        implements OnItemClickListener, OnRefreshListener {
 
     private DynamicListView mListView;
     private AccountAdapter mAdapter;
     private ArrayList<Account> mAccounts;
 
+    private SwipeRefreshLayout mSwipeLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -70,5 +78,18 @@ public class MainActivity extends Activity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                mSwipeLayout.setRefreshing(false);
+            }
+        }, 1000);
+    }
+
+    public SwipeRefreshLayout getSwipeLayout() {
+        return mSwipeLayout;
     }
 }

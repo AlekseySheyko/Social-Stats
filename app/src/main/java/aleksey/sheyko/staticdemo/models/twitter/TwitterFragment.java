@@ -50,15 +50,7 @@ public class TwitterFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialise list with existing accounts
-//        List<Account> accountList =
-//                Account.listAll(Account.class);
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, namesArray);
-
-//        ListView listView = (ListView) view.findViewById(R.id.listview);
-//        listView.setAdapter(adapter);
+        // TODO List existing Twitter accounts
 
         // Give the ability to add new account
         TwitterAuthConfig authConfig =

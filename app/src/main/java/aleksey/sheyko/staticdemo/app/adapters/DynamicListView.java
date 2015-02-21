@@ -41,6 +41,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.app.activities.MainActivity;
 import aleksey.sheyko.staticdemo.models.Account;
 
 /**
@@ -69,6 +70,8 @@ public class DynamicListView extends ListView {
     private final int SMOOTH_SCROLL_AMOUNT_AT_EDGE = 15;
     private final int MOVE_DURATION = 150;
     private final int LINE_THICKNESS = 5;
+
+    private MainActivity mContext;
 
     public ArrayList<Account> mCheeseList;
 
@@ -114,6 +117,8 @@ public class DynamicListView extends ListView {
     }
 
     public void init(Context context) {
+        mContext = (MainActivity) context;
+
         setOnItemClickListener((OnItemClickListener) context);
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
@@ -141,6 +146,8 @@ public class DynamicListView extends ListView {
                     mCellIsMobile = true;
 
                     updateNeighborViewsForID(mMobileItemId);
+
+                    mContext.getSwipeLayout().setEnabled(false);
 
                     return true;
                 }
@@ -428,6 +435,8 @@ public class DynamicListView extends ListView {
                     mHoverCell = null;
                     setEnabled(true);
                     invalidate();
+
+                    mContext.getSwipeLayout().setEnabled(true);
                 }
             });
             hoverViewAnimator.start();

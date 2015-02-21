@@ -1,15 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:context="aleksey.sheyko.staticdemo.app.activities.MainActivity">
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="aleksey.sheyko.staticdemo.app.activities.MainActivity">
 
-    <aleksey.sheyko.staticdemo.app.adapters.DynamicListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="1dp"
-        android:divider="#ffe6e4e6"
-        android:id="@+id/listview"/>
+        <aleksey.sheyko.staticdemo.app.adapters.DynamicListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            android:divider="#ffe6e4e6"
+            android:id="@+id/listview"/>
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

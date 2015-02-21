@@ -10,14 +10,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.app.adapters.AccountAdapter;
 import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
 import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
 import aleksey.sheyko.staticdemo.models.Account;
-import aleksey.sheyko.staticdemo.models.AccountStats;
 
 
 public class MainActivity extends Activity
@@ -54,17 +52,6 @@ public class MainActivity extends Activity
         Account currentAccount = mAccounts.get(position);
         currentAccount.notifyDataSetChanged();
 
-        List<AccountStats> statsList = new ArrayList<>();
-
-        statsList.add(new AccountStats(
-                currentAccount.getStatsList().get(currentAccount.getNextDataSet()).getLabel(),
-                currentAccount.getStatsList().get(currentAccount.getNextDataSet()).getValue()));
-
-        Account account = new Account(currentAccount.getService(),
-                currentAccount.getUsername(),
-                statsList);
-
-        mAccounts.add(account);
         mAdapter.notifyDataSetChanged();
     }
 

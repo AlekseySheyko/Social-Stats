@@ -32,16 +32,8 @@ public class Account implements Serializable {
         return mService;
     }
 
-    public void setService(String service) {
-        mService = service;
-    }
-
     public String getUsername() {
         return mUsername;
-    }
-
-    public void setUsername(String username) {
-        mUsername = username;
     }
 
     public List<AccountStats> getStatsList() {
@@ -52,7 +44,7 @@ public class Account implements Serializable {
         mStatsList = statsList;
     }
 
-    public int getNextDataSet() {
+    public int getShowingDataSet() {
         return mShowingDataSet;
     }
 

@@ -53,8 +53,9 @@ public class AccountAdapter extends ArrayAdapter<Account> {
             TextView valueTextView = (TextView) view.findViewById(R.id.value);
 
             nameTextView.setText(account.getUsername());
-            labelTextView.setText(account.getStatsList().get(0).getLabel());
-            valueTextView.setText(account.getStatsList().get(0).getValue() + "");
+
+            labelTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getLabel());
+            valueTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getValue() + "");
 
             ImageView iconImageView = (ImageView) view.findViewById(R.id.icon);
             switch (account.getService()) {

@@ -1,7 +1,6 @@
 package aleksey.sheyko.staticdemo.app.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +56,6 @@ public class AccountAdapter extends ArrayAdapter<Account> {
 
             labelTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getLabel());
             valueTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getValue() + "");
-
-            Log.i("TAG", "Avatar URL: " + account.getAvatarUrl());
 
             ImageView iconImageView = (ImageView) view.findViewById(R.id.icon);
             switch (account.getService()) {

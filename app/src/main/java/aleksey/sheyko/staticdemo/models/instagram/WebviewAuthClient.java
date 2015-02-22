@@ -63,23 +63,13 @@ public class WebviewAuthClient extends WebViewClient {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL url = new URL(mTokenUrlString);
-                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
-                outputStreamWriter.write("client_id=" + Constants.CLIENT_ID +
-                        "&client_secret=" + Constants.CLIENT_SECRET +
-                        "&grant_type=authorization_code" +
-                        "&redirect_uri=" + Constants.CALLBACK_URL +
-                        "&code=" + mRequestToken);
-                outputStreamWriter.flush();
-                String response = streamToString(urlConnection.getInputStream());
-                JSONObject responseObject = (JSONObject) new JSONTokener(response).nextValue();
-                String accessToken = responseObject.getString("access_token"); // Here is your ACCESS TOKEN
-                String id = responseObject.getJSONObject("user").getString("id");
-                String username = responseObject.getJSONObject("user").getString("username");
+                String accessToken = mSharedPref.getString("in_access_token", "");
+                String id = mSharedPref.getString("in_user_id", "");
+
+                if (accessToken.isEmpty() || id.isEmpty()) {
+                    queryAccessToken();
+                    return null;
+                }
 
                 // Start querying user data
                 Uri.Builder builder = new Uri.Builder();
@@ -91,8 +81,8 @@ public class WebviewAuthClient extends WebViewClient {
                         .appendQueryParameter("access_token", accessToken);
                 String urlString = builder.build().toString();
 
-                url = new URL(urlString);
-                urlConnection = (HttpsURLConnection) url.openConnection();
+                URL url = new URL(urlString);
+                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
 
                 // Read the input stream into a String
@@ -106,10 +96,12 @@ public class WebviewAuthClient extends WebViewClient {
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
-                response = buffer.toString();
-                responseObject = (JSONObject) new JSONTokener(response).nextValue();
+                String response = buffer.toString();
+                JSONObject responseObject = (JSONObject) new JSONTokener(response).nextValue();
 
                 JSONObject dataObject = responseObject.getJSONObject("data");
+
+                String username = dataObject.getString("username");
                 String avatarUrl = dataObject.getString("profile_picture");
                 JSONObject countsObject = dataObject.getJSONObject("counts");
 
@@ -134,37 +126,63 @@ public class WebviewAuthClient extends WebViewClient {
             return null;
         }
 
-        private String streamToString(InputStream inputStream) {
-            String string = "";
-            try {
-                if (inputStream != null) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    try {
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(inputStream));
-
-                        while ((line = reader.readLine()) != null) {
-                            stringBuilder.append(line);
-                        }
-
-                        reader.close();
-                    } finally {
-                        inputStream.close();
-                    }
-
-                    string = stringBuilder.toString();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return string;
-        }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
         }
+    }
+
+    public void queryAccessToken() throws Exception {
+        URL url = new URL(mTokenUrlString);
+        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setDoInput(true);
+        urlConnection.setDoOutput(true);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+        outputStreamWriter.write("client_id=" + Constants.CLIENT_ID +
+                "&client_secret=" + Constants.CLIENT_SECRET +
+                "&grant_type=authorization_code" +
+                "&redirect_uri=" + Constants.CALLBACK_URL +
+                "&code=" + mRequestToken);
+        outputStreamWriter.flush();
+        String response = streamToString(urlConnection.getInputStream());
+        JSONObject responseObject = (JSONObject) new JSONTokener(response).nextValue();
+
+        String id = responseObject.getJSONObject("user").getString("id");
+        String accessToken = responseObject.getString("access_token");
+        mSharedPref.edit()
+                .putString("in_user_id", id)
+                .putString("in_access_token", accessToken)
+                .commit();
+
+        new GetTokenTask().execute();
+    }
+
+    private String streamToString(InputStream inputStream) {
+        String string = "";
+        try {
+            if (inputStream != null) {
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                try {
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(inputStream));
+
+                    while ((line = reader.readLine()) != null) {
+                        stringBuilder.append(line);
+                    }
+
+                    reader.close();
+                } finally {
+                    inputStream.close();
+                }
+
+                string = stringBuilder.toString();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return string;
     }
 }

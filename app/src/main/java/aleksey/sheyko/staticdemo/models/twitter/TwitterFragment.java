@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.app.activities.MainActivity;
+import aleksey.sheyko.staticdemo.app.adapters.ServiceAdapter;
 import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
 import aleksey.sheyko.staticdemo.models.Account;
 import aleksey.sheyko.staticdemo.models.AccountStats;
@@ -52,7 +55,15 @@ public class TwitterFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // TODO List existing Twitter accounts
+        // List existing Twitter accounts
+        AccountDataSource dataSource = new AccountDataSource(getActivity());
+        ArrayList<Account> accounts = dataSource.read("Twitter");
+
+        ServiceAdapter adapter = new ServiceAdapter(
+                getActivity(), R.layout.list_item_service, accounts);
+
+        ListView listView = (ListView) view.findViewById(R.id.listview);
+        listView.setAdapter(adapter);
 
         // Give the ability to add new account
         TwitterAuthConfig authConfig =
@@ -135,5 +146,9 @@ public class TwitterFragment extends Fragment {
         // Pass the activity result to the login button.
         twitterLoginButton.onActivityResult(requestCode, resultCode,
                 data);
+
+        startActivity(new Intent(getActivity(), MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

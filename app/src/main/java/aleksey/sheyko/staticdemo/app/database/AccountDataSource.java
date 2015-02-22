@@ -34,6 +34,12 @@ public class AccountDataSource {
         return accounts;
     }
 
+    public ArrayList<Account> read(String service) {
+        ArrayList<Account> accounts = readAccounts(service);
+        addAccountStats(accounts);
+        return accounts;
+    }
+
     public ArrayList<Account> readAccounts() {
         SQLiteDatabase database = open();
 
@@ -42,6 +48,34 @@ public class AccountDataSource {
                 new String[]{SQLiteHelper.COLUMN_USER_NAME, BaseColumns._ID, SQLiteHelper.COLUMN_SERVICE, SQLiteHelper.COLUMN_AVATAR_URL},
                 null, //selection
                 null, //selection args
+                null, //group by
+                null, //having
+                null); //order
+
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        if (cursor.moveToFirst()) {
+            do {
+                Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_SERVICE),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_USER_NAME),
+                        null,
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL));
+                accounts.add(account);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close(database);
+        return accounts;
+    }
+
+    public ArrayList<Account> readAccounts(String service) {
+        SQLiteDatabase database = open();
+
+        Cursor cursor = database.query(
+                SQLiteHelper.ACCOUNTS_TABLE,
+                new String[]{SQLiteHelper.COLUMN_USER_NAME, BaseColumns._ID, SQLiteHelper.COLUMN_SERVICE, SQLiteHelper.COLUMN_AVATAR_URL},
+                SQLiteHelper.COLUMN_SERVICE + " = ?", //selection
+                new String[]{service}, //selection args
                 null, //group by
                 null, //having
                 null); //order

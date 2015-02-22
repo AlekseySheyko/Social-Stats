@@ -14,7 +14,7 @@ import java.util.HashMap;
 import aleksey.sheyko.staticdemo.R;
 import aleksey.sheyko.staticdemo.models.Account;
 
-public class AccountAdapter extends ArrayAdapter<Account> {
+public class ServiceAdapter extends ArrayAdapter<Account> {
 
     final int INVALID_ID = -1;
 
@@ -24,7 +24,7 @@ public class AccountAdapter extends ArrayAdapter<Account> {
     // Declaring our ArrayList of items
     private ArrayList<Account> mAccounts;
 
-    public AccountAdapter(Context context, int textViewResourceId, ArrayList<Account> accounts) {
+    public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Account> accounts) {
         super(context, textViewResourceId, accounts);
         mContext = context;
         mAccounts = accounts;
@@ -42,20 +42,14 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         // Check to see if the view is null
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item_account, parent, false);
+            view = inflater.inflate(R.layout.list_item_service, parent, false);
         }
         // Recall that the variable position is sent in as an argument to this method.
         Account account = mAccounts.get(position);
 
         if (account != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.username);
-            TextView labelTextView = (TextView) view.findViewById(R.id.label);
-            TextView valueTextView = (TextView) view.findViewById(R.id.value);
-
             nameTextView.setText(account.getUsername());
-
-            labelTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getLabel());
-            valueTextView.setText(account.getStatsList().get(account.getShowingDataSet()).getValue() + "");
 
             ImageView iconImageView = (ImageView) view.findViewById(R.id.icon);
             switch (account.getService()) {

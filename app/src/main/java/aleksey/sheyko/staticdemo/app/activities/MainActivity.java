@@ -47,7 +47,7 @@ public class MainActivity extends Activity
         mAccounts = dataSource.read();
 
         mAdapter = new AccountAdapter(this,
-                R.layout.account_list_item, mAccounts);
+                R.layout.list_item_account, mAccounts);
 
         mListView = (DynamicListView) findViewById(R.id.listview);
         mListView.setCheeseList(mAccounts);

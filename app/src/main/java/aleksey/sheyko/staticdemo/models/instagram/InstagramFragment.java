@@ -8,8 +8,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.staticdemo.app.adapters.ServiceAdapter;
+import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
+import aleksey.sheyko.staticdemo.models.Account;
 
 public class InstagramFragment extends Fragment {
 
@@ -31,6 +37,16 @@ public class InstagramFragment extends Fragment {
                 signIn(view);
             }
         });
+
+        // List existing Twitter accounts
+        AccountDataSource dataSource = new AccountDataSource(getActivity());
+        ArrayList<Account> accounts = dataSource.read("Instagram");
+
+        ServiceAdapter adapter = new ServiceAdapter(
+                getActivity(), R.layout.list_item_service, accounts);
+
+        ListView listView = (ListView) view.findViewById(R.id.listview);
+        listView.setAdapter(adapter);
     }
 
     private void signIn(View view) {

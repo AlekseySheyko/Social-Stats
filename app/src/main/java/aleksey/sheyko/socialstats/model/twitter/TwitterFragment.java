@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.models.twitter;
+package aleksey.sheyko.socialstats.model.twitter;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -25,12 +25,12 @@ import com.twitter.sdk.android.core.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.activities.MainActivity;
-import aleksey.sheyko.staticdemo.app.adapters.ServiceAdapter;
-import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
-import aleksey.sheyko.staticdemo.models.Account;
-import aleksey.sheyko.staticdemo.models.AccountStats;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.app.activities.MainActivity;
+import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
+import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.model.AccountStats;
 import io.fabric.sdk.android.Fabric;
 
 

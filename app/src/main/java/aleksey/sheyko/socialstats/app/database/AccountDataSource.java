@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.database;
+package aleksey.sheyko.socialstats.app.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 
-import aleksey.sheyko.staticdemo.models.Account;
-import aleksey.sheyko.staticdemo.models.AccountStats;
+import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.model.AccountStats;
 
 public class AccountDataSource {
 

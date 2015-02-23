@@ -49,7 +49,8 @@
             android:layout_height="wrap_content"
             android:text="372"
             android:textColor="#ffa4a3a4"
-            android:textSize="30sp"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-light"
             android:layout_marginTop="-8dp"/>
 
         </LinearLayout>

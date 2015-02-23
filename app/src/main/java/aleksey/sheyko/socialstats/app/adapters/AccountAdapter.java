@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.adapters;
+package aleksey.sheyko.socialstats.app.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.model.Account;
 
 public class AccountAdapter extends ArrayAdapter<Account> {
 

@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.activities;
+package aleksey.sheyko.socialstats.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,16 +9,18 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.adapters.AccountAdapter;
-import aleksey.sheyko.staticdemo.app.adapters.DynamicListView;
-import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
-import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
+import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
+import aleksey.sheyko.socialstats.app.adapters.Rotate3dAnimation;
+import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.model.Account;
 
 
 public class MainActivity extends Activity
@@ -60,7 +62,15 @@ public class MainActivity extends Activity
         Account currentAccount = mAccounts.get(position);
         currentAccount.notifyDataSetChanged();
 
-        mAdapter.notifyDataSetChanged();
+        Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
+        anim.setDuration(500);
+        mListView.getChildAt(position).startAnimation(anim);
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mAdapter.notifyDataSetChanged();
+            }
+        }, anim.getDuration());
     }
 
     @Override
@@ -83,10 +93,11 @@ public class MainActivity extends Activity
     @Override
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 mSwipeLayout.setRefreshing(false);
             }
-        }, 1000);
+        }, 500);
     }
 
     public SwipeRefreshLayout getSwipeLayout() {

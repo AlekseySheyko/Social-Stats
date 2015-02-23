@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.app.activities;
+package aleksey.sheyko.socialstats.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import aleksey.sheyko.staticdemo.R;
+import aleksey.sheyko.socialstats.R;
 
 
 public class SelectActivity extends Activity {

@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.models.instagram;
+package aleksey.sheyko.socialstats.model.instagram;
 
 public class Constants {
     // Instagram auth urls

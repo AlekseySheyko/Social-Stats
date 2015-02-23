@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.models.instagram;
+package aleksey.sheyko.socialstats.model.instagram;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +22,11 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.activities.MainActivity;
-import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
-import aleksey.sheyko.staticdemo.models.Account;
-import aleksey.sheyko.staticdemo.models.AccountStats;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.app.activities.MainActivity;
+import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.model.AccountStats;
 
 public class WebviewAuthClient extends WebViewClient {
 

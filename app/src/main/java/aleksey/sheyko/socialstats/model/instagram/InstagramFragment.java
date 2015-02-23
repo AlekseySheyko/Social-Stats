@@ -1,4 +1,4 @@
-package aleksey.sheyko.staticdemo.models.instagram;
+package aleksey.sheyko.socialstats.model.instagram;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.adapters.ServiceAdapter;
-import aleksey.sheyko.staticdemo.app.database.AccountDataSource;
-import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
+import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.model.Account;
 
 public class InstagramFragment extends Fragment {
 

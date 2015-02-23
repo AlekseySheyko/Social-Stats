@@ -4,9 +4,9 @@
     android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="aleksey.sheyko.staticdemo.app.activities.MainActivity">
+    tools:context="aleksey.sheyko.socialstats.app.activities.MainActivity">
 
-        <aleksey.sheyko.staticdemo.app.adapters.DynamicListView
+        <aleksey.sheyko.socialstats.app.adapters.DynamicListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="1dp"

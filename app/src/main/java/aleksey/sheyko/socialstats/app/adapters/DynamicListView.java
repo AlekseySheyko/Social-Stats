@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.staticdemo.app.adapters;
+package aleksey.sheyko.socialstats.app.adapters;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -40,9 +40,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import aleksey.sheyko.staticdemo.R;
-import aleksey.sheyko.staticdemo.app.activities.MainActivity;
-import aleksey.sheyko.staticdemo.models.Account;
+import aleksey.sheyko.socialstats.R;
+import aleksey.sheyko.socialstats.app.activities.MainActivity;
+import aleksey.sheyko.socialstats.model.Account;
 
 /**
  * The dynamic listview is an extension of listview that supports cell dragging

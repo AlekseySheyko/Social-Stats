@@ -2,7 +2,8 @@
 <resources>
     <color name="background">#e6e5e6</color>
     <color name="list_item_normal">#eeedef</color>
-    <color name="list_item_pressed">#e7e6e8</color>
+    <color name="list_item_focused">#ffd1d0d2</color>
+    <color name="list_item_pressed">#ffdbdadc</color>
     <color name="selected_item_border">#aba9ac</color>
     <color name="white">#fff</color>
     <color name="tw__bg_color">#339ae3</color>

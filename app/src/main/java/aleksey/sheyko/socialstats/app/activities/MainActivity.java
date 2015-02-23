@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
 import aleksey.sheyko.socialstats.app.database.AccountDataSource;
-import aleksey.sheyko.socialstats.app.utils.DynamicListView;
+import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
 import aleksey.sheyko.socialstats.model.Account;
 
 

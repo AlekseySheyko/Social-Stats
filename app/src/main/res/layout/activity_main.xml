@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="aleksey.sheyko.socialstats.app.activities.MainActivity">
 
-        <aleksey.sheyko.socialstats.app.utils.DynamicListView
+        <aleksey.sheyko.socialstats.app.adapters.DynamicListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="1dp"

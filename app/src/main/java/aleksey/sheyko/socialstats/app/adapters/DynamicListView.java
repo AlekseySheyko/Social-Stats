@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.socialstats.app.utils;
+package aleksey.sheyko.socialstats.app.adapters;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -543,8 +543,8 @@ public class DynamicListView extends ListView {
         return false;
     }
 
-    public void setAccountList(ArrayList<Account> cheeseList) {
-        mAccounts = cheeseList;
+    public void setAccountList(ArrayList<Account> accountList) {
+        mAccounts = accountList;
     }
 
     /**

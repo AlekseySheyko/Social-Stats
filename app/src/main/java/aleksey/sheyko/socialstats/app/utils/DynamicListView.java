@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.socialstats.app.adapters;
+package aleksey.sheyko.socialstats.app.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -27,11 +27,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -73,7 +75,7 @@ public class DynamicListView extends ListView {
 
     private MainActivity mContext;
 
-    public ArrayList<Account> mCheeseList;
+    public ArrayList<Account> mAccounts;
 
     private int mLastEventY = -1;
 
@@ -119,7 +121,7 @@ public class DynamicListView extends ListView {
     public void init(Context context) {
         mContext = (MainActivity) context;
 
-        setOnItemClickListener((OnItemClickListener) context);
+        setOnItemClickListener(mOnItemClickListener);
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -152,6 +154,32 @@ public class DynamicListView extends ListView {
                     return true;
                 }
             };
+
+    /**
+     * Listens for long clicks on any items in the listview. When a cell has
+     * been selected, the hover cell is created and set up.
+     */
+    private AdapterView.OnItemClickListener mOnItemClickListener =
+            new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Account currentAccount = mAccounts.get(position);
+                    currentAccount.notifyDataSetChanged();
+
+                    Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
+                    anim.setDuration(50);
+                    getChildAt(position).startAnimation(anim);
+
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            mContext.getAdapter().notifyDataSetChanged();
+                        }
+                    }, anim.getDuration());
+                }
+            };
+
+
 
     /**
      * Creates the hover cell with the appropriate bitmap and of appropriate
@@ -345,7 +373,7 @@ public class DynamicListView extends ListView {
                 return;
             }
 
-            swapElements(mCheeseList, originalItem, getPositionForView(switchView));
+            swapElements(mAccounts, originalItem, getPositionForView(switchView));
 
             ((BaseAdapter) getAdapter()).notifyDataSetChanged();
 
@@ -515,8 +543,8 @@ public class DynamicListView extends ListView {
         return false;
     }
 
-    public void setCheeseList(ArrayList<Account> cheeseList) {
-        mCheeseList = cheeseList;
+    public void setAccountList(ArrayList<Account> cheeseList) {
+        mAccounts = cheeseList;
     }
 
     /**

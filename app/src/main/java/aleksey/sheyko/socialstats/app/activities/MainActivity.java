@@ -8,27 +8,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
-import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
-import aleksey.sheyko.socialstats.app.adapters.Rotate3dAnimation;
 import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.app.utils.DynamicListView;
 import aleksey.sheyko.socialstats.model.Account;
 
 
-public class MainActivity extends Activity
-        implements OnItemClickListener, OnRefreshListener {
+public class MainActivity extends Activity implements OnRefreshListener {
 
-    private DynamicListView mListView;
     private AccountAdapter mAdapter;
-    private ArrayList<Account> mAccounts;
 
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -37,40 +29,28 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AccountDataSource dataSource = new AccountDataSource(this);
+        ArrayList<Account> accounts = dataSource.read();
+
+        mAdapter = new AccountAdapter(this,
+                R.layout.list_item_account, accounts);
+
+        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
+        listView.setAccountList(accounts);
+        listView.setAdapter(mAdapter);
+
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        AccountDataSource dataSource = new AccountDataSource(this);
-        mAccounts = dataSource.read();
-
-        mAdapter = new AccountAdapter(this,
-                R.layout.list_item_account, mAccounts);
-
-        mListView = (DynamicListView) findViewById(R.id.listview);
-        mListView.setCheeseList(mAccounts);
-        mListView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Account currentAccount = mAccounts.get(position);
-        currentAccount.notifyDataSetChanged();
-
-        Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
-        anim.setDuration(500);
-        mListView.getChildAt(position).startAnimation(anim);
-
+    public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
+            @Override
             public void run() {
-                mAdapter.notifyDataSetChanged();
+                mSwipeLayout.setRefreshing(false);
             }
-        }, anim.getDuration());
+        }, 300);
     }
 
     @Override
@@ -90,17 +70,11 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-            }
-        }, 500);
-    }
-
     public SwipeRefreshLayout getSwipeLayout() {
         return mSwipeLayout;
+    }
+
+    public AccountAdapter getAdapter() {
+        return mAdapter;
     }
 }

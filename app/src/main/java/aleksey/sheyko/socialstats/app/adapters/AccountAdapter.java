@@ -18,7 +18,7 @@ public class AccountAdapter extends ArrayAdapter<Account> {
 
     final int INVALID_ID = -1;
 
-    HashMap<Integer, Integer> mIdMap = new HashMap<>();
+    HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
     private Context mContext;
     // Declaring our ArrayList of items
@@ -28,6 +28,10 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         super(context, textViewResourceId, accounts);
         mContext = context;
         mAccounts = accounts;
+
+        for (int i = 0; i < accounts.size(); ++i) {
+            mIdMap.put(accounts.get(i).toString(), i);
+        }
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

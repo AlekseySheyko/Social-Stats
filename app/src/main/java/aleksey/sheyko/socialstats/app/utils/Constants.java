@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.model.instagram;
+package aleksey.sheyko.socialstats.app.utils;
 
 public class Constants {
     // Instagram auth urls

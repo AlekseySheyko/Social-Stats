@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aleksey.sheyko.socialstats.app.adapters;
+package aleksey.sheyko.socialstats.app.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

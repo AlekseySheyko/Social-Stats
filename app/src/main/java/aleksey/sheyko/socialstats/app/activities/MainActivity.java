@@ -3,7 +3,6 @@ package aleksey.sheyko.socialstats.app.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Menu;
@@ -13,12 +12,15 @@ import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
-import aleksey.sheyko.socialstats.app.database.AccountDataSource;
-import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
+import aleksey.sheyko.socialstats.app.utils.DynamicListView;
+import aleksey.sheyko.socialstats.data.AccountDataSource;
 import aleksey.sheyko.socialstats.model.Account;
 
 
 public class MainActivity extends Activity implements OnRefreshListener {
+
+    private AccountDataSource mDataSource;
+    private ArrayList<Account> mAccountList;
 
     private AccountAdapter mAdapter;
 
@@ -29,14 +31,14 @@ public class MainActivity extends Activity implements OnRefreshListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AccountDataSource dataSource = new AccountDataSource(this);
-        ArrayList<Account> accounts = dataSource.read();
+        mDataSource = new AccountDataSource(this);
+        mAccountList = mDataSource.read();
 
         mAdapter = new AccountAdapter(this,
-                R.layout.list_item_account, accounts);
+                R.layout.list_item_account, mAccountList);
 
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
-        listView.setAccountList(accounts);
+        listView.setAccountList(mAccountList);
         listView.setAdapter(mAdapter);
 
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -45,12 +47,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-            }
-        }, 300);
+
+        updateStats();
+        mSwipeLayout.setRefreshing(false);
+    }
+
+    private void updateStats() {
+        for (Account account : mAccountList) {
+            mDataSource.update(account);
+        }
     }
 
     @Override

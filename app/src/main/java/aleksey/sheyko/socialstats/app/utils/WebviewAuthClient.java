@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.model.instagram;
+package aleksey.sheyko.socialstats.app.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,9 +24,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
-import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.data.AccountDataSource;
 import aleksey.sheyko.socialstats.model.Account;
-import aleksey.sheyko.socialstats.model.AccountStats;
+import aleksey.sheyko.socialstats.model.DataSet;
 
 public class WebviewAuthClient extends WebViewClient {
 
@@ -109,10 +109,10 @@ public class WebviewAuthClient extends WebViewClient {
                 int following = countsObject.getInt("follows");
                 int followers = countsObject.getInt("followed_by");
 
-                List<AccountStats> statsList = new ArrayList<>();
-                statsList.add(new AccountStats("followers", followers));
-                statsList.add(new AccountStats("media", media));
-                statsList.add(new AccountStats("following", following));
+                List<DataSet> statsList = new ArrayList<>();
+                statsList.add(new DataSet("followers", followers));
+                statsList.add(new DataSet("media", media));
+                statsList.add(new DataSet("following", following));
 
                 Account account = new Account("Instagram", username, statsList, avatarUrl);
 

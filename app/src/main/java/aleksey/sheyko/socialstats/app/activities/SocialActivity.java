@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import aleksey.sheyko.socialstats.R;
-import aleksey.sheyko.socialstats.model.instagram.InstagramFragment;
-import aleksey.sheyko.socialstats.model.twitter.TwitterFragment;
+import aleksey.sheyko.socialstats.app.fragments.FacebookFragment;
+import aleksey.sheyko.socialstats.app.fragments.GoogleFragment;
+import aleksey.sheyko.socialstats.app.fragments.InstagramFragment;
+import aleksey.sheyko.socialstats.app.fragments.TwitterFragment;
 
 public class SocialActivity extends Activity {
 
@@ -35,10 +37,10 @@ public class SocialActivity extends Activity {
                 fragment = new InstagramFragment();
                 break;
             case FR_FACEBOOK:
-
+                fragment = new FacebookFragment();
                 break;
             case FR_GOOGLE:
-
+                fragment = new GoogleFragment();
                 break;
         }
         FragmentManager manager = getFragmentManager();

@@ -35,10 +35,10 @@
         <activity
             android:name="aleksey.sheyko.socialstats.app.activities.SocialActivity"
             android:theme="@style/SocialTheme"
-            android:parentActivityName="aleksey.sheyko.socialstats.app.activities.MainActivity" >
+            android:parentActivityName="aleksey.sheyko.socialstats.app.activities.SelectActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="aleksey.sheyko.socialstats.app.activities.MainActivity" />
+                android:value="aleksey.sheyko.socialstats.app.activities.SelectActivity" />
         </activity>
     </application>
 

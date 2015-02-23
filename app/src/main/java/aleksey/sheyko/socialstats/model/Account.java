@@ -8,18 +8,18 @@ public class Account implements Serializable {
     private int mId;
     private String mService;
     private String mUsername;
-    private List<AccountStats> mStatsList;
+    private List<DataSet> mStatsList;
     private String mAvatarUrl;
     private int mShowingDataSet;
 
-    public Account(String service, String username, List<AccountStats> statsList, String avatarUrl) {
+    public Account(String service, String username, List<DataSet> statsList, String avatarUrl) {
         mService = service;
         mUsername = username;
         mStatsList = statsList;
         mAvatarUrl = avatarUrl;
     }
 
-    public Account(int id, String service, String username, List<AccountStats> statsList, String avatarUrl) {
+    public Account(int id, String service, String username, List<DataSet> statsList, String avatarUrl) {
         mId = id;
         mService = service;
         mUsername = username;
@@ -39,11 +39,11 @@ public class Account implements Serializable {
         return mUsername;
     }
 
-    public List<AccountStats> getStatsList() {
+    public List<DataSet> getStatsList() {
         return mStatsList;
     }
 
-    public void setStatsList(ArrayList<AccountStats> statsList) {
+    public void setStatsList(ArrayList<DataSet> statsList) {
         mStatsList = statsList;
     }
 

@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.model.twitter;
+package aleksey.sheyko.socialstats.app.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -28,9 +28,9 @@ import java.util.List;
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
-import aleksey.sheyko.socialstats.app.database.AccountDataSource;
+import aleksey.sheyko.socialstats.data.AccountDataSource;
 import aleksey.sheyko.socialstats.model.Account;
-import aleksey.sheyko.socialstats.model.AccountStats;
+import aleksey.sheyko.socialstats.model.DataSet;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -126,10 +126,10 @@ public class TwitterFragment extends Fragment {
 
     private void saveAccount(String username, int followers, int tweets, int following, String avatarUrl) {
 
-        List<AccountStats> statsList = new ArrayList<>();
-        statsList.add(new AccountStats("followers", followers));
-        statsList.add(new AccountStats("tweets", tweets));
-        statsList.add(new AccountStats("following", following));
+        List<DataSet> statsList = new ArrayList<>();
+        statsList.add(new DataSet("followers", followers));
+        statsList.add(new DataSet("tweets", tweets));
+        statsList.add(new DataSet("following", following));
 
         Account account = new Account("Twitter", username, statsList, avatarUrl);
 

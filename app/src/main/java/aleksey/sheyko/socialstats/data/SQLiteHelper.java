@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.app.database;
+package aleksey.sheyko.socialstats.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

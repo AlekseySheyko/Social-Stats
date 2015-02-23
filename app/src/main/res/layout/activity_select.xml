@@ -34,12 +34,14 @@
             android:id="@+id/facebook_btn"
             android:src="@drawable/ic_facebook"
             android:contentDescription="@string/desc_facebook"
+            android:onClick="addAccount"
             style="@style/ImageAccountType"/>
 
         <ImageView
             android:id="@+id/google_btn"
             android:src="@drawable/ic_google"
             android:contentDescription="@string/desc_google"
+            android:onClick="addAccount"
             style="@style/ImageAccountType"/>
     </TableRow>
 

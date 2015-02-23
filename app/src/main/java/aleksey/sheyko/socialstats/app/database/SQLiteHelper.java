@@ -21,7 +21,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     COLUMN_SERVICE + " TEXT," +
                     COLUMN_USER_NAME + " TEXT," +
                     COLUMN_DATA_SETS + " TEXT," +
-                    COLUMN_AVATAR_URL + " TEXT)";
+                    COLUMN_AVATAR_URL + " TEXT," +
+                    "UNIQUE(" + COLUMN_SERVICE + "," + COLUMN_USER_NAME + "))";
 
     //Stats Table functionality
     public static final String STATS_TABLE = "STATS";

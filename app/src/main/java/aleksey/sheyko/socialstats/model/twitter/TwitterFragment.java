@@ -94,6 +94,10 @@ public class TwitterFragment extends Fragment {
                                         String avatarUrl = user.profileImageUrl;
 
                                         saveAccount(username, followers, tweets, following, avatarUrl);
+
+                                        startActivity(new Intent(getActivity(), MainActivity.class)
+                                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                     }
 
                                     @Override
@@ -146,9 +150,5 @@ public class TwitterFragment extends Fragment {
         // Pass the activity result to the login button.
         twitterLoginButton.onActivityResult(requestCode, resultCode,
                 data);
-
-        startActivity(new Intent(getActivity(), MainActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

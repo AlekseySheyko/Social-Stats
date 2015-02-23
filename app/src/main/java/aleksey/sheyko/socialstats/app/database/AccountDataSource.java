@@ -52,7 +52,7 @@ public class AccountDataSource {
                 null, //having
                 null); //order
 
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
@@ -80,7 +80,7 @@ public class AccountDataSource {
                 null, //having
                 null); //order
 
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 Account account = new Account(getIntFromColumnName(cursor, BaseColumns._ID),
@@ -100,7 +100,7 @@ public class AccountDataSource {
         SQLiteDatabase database = open();
 
         for (Account account : accounts) {
-            ArrayList<AccountStats> statsList = new ArrayList<AccountStats>();
+            ArrayList<AccountStats> statsList = new ArrayList<>();
             Cursor cursor = database.rawQuery(
                     "SELECT * FROM " + SQLiteHelper.STATS_TABLE +
                             " WHERE ACCOUNT_ID = " + account.getId(), null);

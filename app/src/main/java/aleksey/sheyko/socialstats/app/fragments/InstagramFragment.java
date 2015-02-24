@@ -1,12 +1,12 @@
 package aleksey.sheyko.socialstats.app.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -14,12 +14,22 @@ import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
-import aleksey.sheyko.socialstats.data.AccountDataSource;
-import aleksey.sheyko.socialstats.app.utils.Constants;
-import aleksey.sheyko.socialstats.app.utils.WebviewAuthClient;
-import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.database.AccountDataSource;
+import aleksey.sheyko.socialstats.rest.instagram.RestClient;
+import aleksey.sheyko.socialstats.rest.model.Account;
 
 public class InstagramFragment extends Fragment {
+
+    // Instagram auth urls
+    public static final String AUTH_URL = "https://api.instagram.com/oauth/authorize/";
+    public static final String TOKEN_URL = "https://api.instagram.com/oauth/access_token";
+    public static final String API_URL = "https://api.instagram.com/v1";
+    public static String CALLBACK_URL = "http://social-stats-demo.com/redirect";
+    public static String GRANT_TYPE = "authorization_code";
+    public static String RESPONSE_TYPE = "code";
+    // Instagram client info
+    public static String CLIENT_ID = "ea32999fda584584881945a9f5157f8e";
+    public static String CLIENT_SECRET = "bb6c0b735e7d46b4a009fd3208c98f6d";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,20 +64,31 @@ public class InstagramFragment extends Fragment {
     private void signIn(View view) {
         getActivity().getActionBar().hide();
 
-        // Form urls for Instagram authentication
-        String authUrlString = Constants.AUTH_URL
-                + "?client_id=" + Constants.CLIENT_ID
-                + "&redirect_uri=" + Constants.CALLBACK_URL
-                + "&response_type=code";
+        new NavigateToLoginScreen().execute();
 
-        // Display the webview for user to authenticate
-        WebView webView = (WebView) view.findViewById(R.id.webview);
-        webView.setVisibility(View.VISIBLE);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new WebviewAuthClient(getActivity()));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(authUrlString);
+//        // Form urls for Instagram authentication
+//        String authUrlString = Constants.AUTH_URL
+//                + "?client_id=" + Constants.CLIENT_ID
+//                + "&redirect_uri=" + Constants.CALLBACK_URL
+//                + "&response_type=code";
+//
+//        // Display the webview for user to authenticate
+//        WebView webView = (WebView) view.findViewById(R.id.webview);
+//        webView.setVisibility(View.VISIBLE);
+//        webView.setVerticalScrollBarEnabled(false);
+//        webView.setHorizontalScrollBarEnabled(false);
+//        webView.setWebViewClient(new WebviewAuthClient(getActivity()));
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.loadUrl(authUrlString);
+    }
+
+    private class NavigateToLoginScreen extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            new RestClient().getApiService().navigateToLogin(CLIENT_ID, CALLBACK_URL, GRANT_TYPE);
+            return null;
+        }
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import aleksey.sheyko.socialstats.R;
-import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.rest.model.Account;
 
 public class ServiceAdapter extends ArrayAdapter<Account> {
 

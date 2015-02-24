@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
-import aleksey.sheyko.socialstats.app.utils.DynamicListView;
-import aleksey.sheyko.socialstats.data.AccountDataSource;
-import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
+import aleksey.sheyko.socialstats.database.AccountDataSource;
+import aleksey.sheyko.socialstats.rest.model.Account;
 
 
 public class MainActivity extends Activity implements OnRefreshListener {

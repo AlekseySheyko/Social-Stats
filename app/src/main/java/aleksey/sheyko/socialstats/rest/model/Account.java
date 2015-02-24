@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.model;
+package aleksey.sheyko.socialstats.rest.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

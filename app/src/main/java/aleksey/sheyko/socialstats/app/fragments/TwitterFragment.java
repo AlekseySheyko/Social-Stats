@@ -28,9 +28,9 @@ import java.util.List;
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
-import aleksey.sheyko.socialstats.data.AccountDataSource;
-import aleksey.sheyko.socialstats.model.Account;
-import aleksey.sheyko.socialstats.model.DataSet;
+import aleksey.sheyko.socialstats.database.AccountDataSource;
+import aleksey.sheyko.socialstats.rest.model.Account;
+import aleksey.sheyko.socialstats.rest.model.DataSet;
 import io.fabric.sdk.android.Fabric;
 
 

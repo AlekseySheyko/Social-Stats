@@ -1,4 +1,4 @@
-package aleksey.sheyko.socialstats.app.utils;
+package aleksey.sheyko.socialstats.app.adapters;
 
 import android.view.animation.Animation;
 import android.view.animation.Transformation;

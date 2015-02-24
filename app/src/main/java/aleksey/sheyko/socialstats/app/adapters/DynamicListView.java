@@ -44,7 +44,7 @@ import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
-import aleksey.sheyko.socialstats.rest.model.Account;
+import aleksey.sheyko.socialstats.model.Account;
 
 /**
  * The dynamic listview is an extension of listview that supports cell dragging

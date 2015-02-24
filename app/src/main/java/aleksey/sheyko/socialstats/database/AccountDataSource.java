@@ -8,8 +8,8 @@ import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 
-import aleksey.sheyko.socialstats.rest.model.Account;
-import aleksey.sheyko.socialstats.rest.model.Stats;
+import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.model.Stats;
 
 public class AccountDataSource {
 
@@ -59,7 +59,8 @@ public class AccountDataSource {
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_SERVICE),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_USER_NAME),
                         null,
-                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL));
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AUTH_TOKEN));
                 accounts.add(account);
             } while (cursor.moveToNext());
         }
@@ -87,7 +88,8 @@ public class AccountDataSource {
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_SERVICE),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_USER_NAME),
                         null,
-                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL));
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AVATAR_URL),
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_AUTH_TOKEN));
                 accounts.add(account);
             } while (cursor.moveToNext());
         }

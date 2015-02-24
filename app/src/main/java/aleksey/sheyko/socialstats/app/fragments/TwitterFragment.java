@@ -16,6 +16,7 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -29,8 +30,8 @@ import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
 import aleksey.sheyko.socialstats.database.AccountDataSource;
-import aleksey.sheyko.socialstats.rest.model.Account;
-import aleksey.sheyko.socialstats.rest.model.Stats;
+import aleksey.sheyko.socialstats.model.Account;
+import aleksey.sheyko.socialstats.model.Stats;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -54,8 +55,7 @@ public class TwitterFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ListView listView = (ListView) view.findViewById(R.id.listview);
-        populateList(listView);
+        populateList(view);
 
         TwitterAuthConfig authConfig =
                 new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
@@ -65,12 +65,12 @@ public class TwitterFragment extends Fragment {
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                login(view);
+                getAccessToken(view);
             }
         });
     }
 
-    private void populateList(ListView listView) {
+    private void populateList(View v) {
         // List existing Twitter accounts
         AccountDataSource dataSource = new AccountDataSource(getActivity());
         ArrayList<Account> accounts = dataSource.read("Twitter");
@@ -78,10 +78,11 @@ public class TwitterFragment extends Fragment {
         ServiceAdapter adapter = new ServiceAdapter(
                 getActivity(), R.layout.list_item_service, accounts);
 
+        ListView listView = (ListView) v.findViewById(R.id.listview);
         listView.setAdapter(adapter);
     }
 
-    public void login(View v) {
+    public String getAccessToken(View v) {
 
         mTwitterButton = (TwitterLoginButton) v.findViewById(R.id.twitterLoginButton);
         mTwitterButton.setEnabled(true);
@@ -94,15 +95,20 @@ public class TwitterFragment extends Fragment {
                 apiClient.getAccountService().verifyCredentials(false, false, new Callback<User>() {
                             @Override
                             public void success(Result<User> userResult) {
-                                User user = userResult.data;
+                                TwitterSession session =
+                                        Twitter.getSessionManager().getActiveSession();
+                                TwitterAuthToken authToken = session.getAuthToken();
+                                String accessToken = authToken.token;
 
-                                String username = user.screenName;
-                                int followers = user.followersCount;
-                                int tweets = user.listedCount;
-                                int following = user.favouritesCount;
-                                String avatarUrl = user.profileImageUrl;
+                                User userData = userResult.data;
 
-                                saveAccount(username, followers, tweets, following, avatarUrl);
+                                String username = userData.screenName;
+                                int followers = userData.followersCount;
+                                int tweets = userData.listedCount;
+                                int following = userData.favouritesCount;
+                                String avatarUrl = userData.profileImageUrl;
+
+                                saveAccount(username, followers, tweets, following, avatarUrl, accessToken);
 
                                 startActivity(new Intent(getActivity(), MainActivity.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -123,16 +129,17 @@ public class TwitterFragment extends Fragment {
                 Log.w(TAG, "Twitter auth request cancelled");
             }
         });
+        return null;
     }
 
-    private void saveAccount(String username, int followers, int tweets, int following, String avatarUrl) {
+    private void saveAccount(String username, int followers, int tweets, int following, String avatarUrl, String accessToken) {
 
         List<Stats> statsList = new ArrayList<>();
         statsList.add(new Stats("followers", followers));
         statsList.add(new Stats("tweets", tweets));
         statsList.add(new Stats("following", following));
 
-        Account account = new Account("Twitter", username, statsList, avatarUrl);
+        Account account = new Account("Twitter", username, statsList, avatarUrl, accessToken);
 
         AccountDataSource dataSource = new AccountDataSource(getActivity());
         dataSource.create(account);

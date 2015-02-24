@@ -1,10 +1,13 @@
 package aleksey.sheyko.socialstats.app.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,13 +17,12 @@ import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
 import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
 import aleksey.sheyko.socialstats.database.AccountDataSource;
-import aleksey.sheyko.socialstats.rest.model.Account;
 
 
 public class MainActivity extends Activity implements OnRefreshListener {
 
     private AccountDataSource mDataSource;
-    private ArrayList<Account> mAccountList;
+    private ArrayList<aleksey.sheyko.socialstats.model.Account> mAccountList;
 
     private AccountAdapter mAdapter;
 
@@ -30,6 +32,12 @@ public class MainActivity extends Activity implements OnRefreshListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AccountManager manager = AccountManager.get(this);
+        for (Account account : manager.getAccountsByType("com.twitter.android.auth.login")) {
+            Log.d("TAG", account.name + " - " + account.type);
+        }
+
 
         mDataSource = new AccountDataSource(this);
         mAccountList = mDataSource.read();
@@ -53,9 +61,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
     }
 
     private void updateStats() {
-        for (Account account : mAccountList) {
-            mDataSource.update(account);
-        }
+//        for (Account account : mAccountList) {
+//            mDataSource.update(account);
+//        }
     }
 
     @Override

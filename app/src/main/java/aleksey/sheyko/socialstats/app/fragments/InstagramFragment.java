@@ -1,7 +1,6 @@
 package aleksey.sheyko.socialstats.app.fragments;
 
 import android.app.Fragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,7 @@ import java.util.ArrayList;
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
 import aleksey.sheyko.socialstats.database.AccountDataSource;
-import aleksey.sheyko.socialstats.rest.instagram.RestClient;
-import aleksey.sheyko.socialstats.rest.model.Account;
+import aleksey.sheyko.socialstats.model.Account;
 
 public class InstagramFragment extends Fragment {
 
@@ -64,8 +62,6 @@ public class InstagramFragment extends Fragment {
     private void signIn(View view) {
         getActivity().getActionBar().hide();
 
-        new NavigateToLoginScreen().execute();
-
 //        // Form urls for Instagram authentication
 //        String authUrlString = Constants.AUTH_URL
 //                + "?client_id=" + Constants.CLIENT_ID
@@ -80,15 +76,6 @@ public class InstagramFragment extends Fragment {
 //        webView.setWebViewClient(new WebviewAuthClient(getActivity()));
 //        webView.getSettings().setJavaScriptEnabled(true);
 //        webView.loadUrl(authUrlString);
-    }
-
-    private class NavigateToLoginScreen extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            new RestClient().getApiService().navigateToLogin(CLIENT_ID, CALLBACK_URL, GRANT_TYPE);
-            return null;
-        }
     }
 
     @Override

@@ -15,6 +15,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_NAME = "NAME";
     public static final String COLUMN_DATA_SETS = "DATA_SETS";
     public static final String COLUMN_AVATAR_URL = "AVATAR_URL";
+    public static final String COLUMN_AUTH_TOKEN = "AUTH_TOKEN";
     public static String CREATE_ACCOUNTS =
             "CREATE TABLE " + ACCOUNTS_TABLE + "("
                     + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -22,6 +23,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     COLUMN_USER_NAME + " TEXT," +
                     COLUMN_DATA_SETS + " TEXT," +
                     COLUMN_AVATAR_URL + " TEXT," +
+                    COLUMN_AUTH_TOKEN + " TEXT," +
                     "UNIQUE(" + COLUMN_SERVICE + "," + COLUMN_USER_NAME + "))";
 
     //Stats Table functionality

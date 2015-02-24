@@ -30,7 +30,7 @@ import aleksey.sheyko.socialstats.app.activities.MainActivity;
 import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
 import aleksey.sheyko.socialstats.database.AccountDataSource;
 import aleksey.sheyko.socialstats.rest.model.Account;
-import aleksey.sheyko.socialstats.rest.model.DataSet;
+import aleksey.sheyko.socialstats.rest.model.Stats;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -38,11 +38,10 @@ public class TwitterFragment extends Fragment {
 
     public static final String TAG = TwitterFragment.class.getSimpleName();
 
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "bmQCF0w32m1awcIOIua56yPqa";
     private static final String TWITTER_SECRET = "8XjePz2wz3TjuvRBuN5fk6O1WzthXYEEvB6AVk1xayVUq5hhnY";
 
-    private TwitterLoginButton twitterLoginButton;
+    private TwitterLoginButton mTwitterButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +51,26 @@ public class TwitterFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ListView listView = (ListView) view.findViewById(R.id.listview);
+        populateList(listView);
+
+        TwitterAuthConfig authConfig =
+                new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(getActivity(), new Twitter(authConfig));
+
+        Button loginButton = (Button) view.findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(view);
+            }
+        });
+    }
+
+    private void populateList(ListView listView) {
         // List existing Twitter accounts
         AccountDataSource dataSource = new AccountDataSource(getActivity());
         ArrayList<Account> accounts = dataSource.read("Twitter");
@@ -62,50 +78,43 @@ public class TwitterFragment extends Fragment {
         ServiceAdapter adapter = new ServiceAdapter(
                 getActivity(), R.layout.list_item_service, accounts);
 
-        ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
+    }
 
-        // Give the ability to add new account
-        TwitterAuthConfig authConfig =
-                new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(getActivity(), new Twitter(authConfig));
+    public void login(View v) {
 
-        twitterLoginButton = (TwitterLoginButton)
-                view.findViewById(R.id.twitterLoginButton);
-        twitterLoginButton.setEnabled(true);
-        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+        mTwitterButton = (TwitterLoginButton) v.findViewById(R.id.twitterLoginButton);
+        mTwitterButton.setEnabled(true);
+        mTwitterButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a
                 // TwitterSession for making API calls
-                TwitterApiClient twitterApiClient =
-                        TwitterCore.getInstance().getApiClient(result.data);
+                TwitterApiClient apiClient = TwitterCore.getInstance().getApiClient(result.data);
+                apiClient.getAccountService().verifyCredentials(false, false, new Callback<User>() {
+                            @Override
+                            public void success(Result<User> userResult) {
+                                User user = userResult.data;
 
-                twitterApiClient.getAccountService()
-                        .verifyCredentials(false, false, new Callback<User>() {
-                                    @Override
-                                    public void success(Result<User> userResult) {
-                                        User user = userResult.data;
+                                String username = user.screenName;
+                                int followers = user.followersCount;
+                                int tweets = user.listedCount;
+                                int following = user.favouritesCount;
+                                String avatarUrl = user.profileImageUrl;
 
-                                        String username = user.screenName;
-                                        int followers = user.followersCount;
-                                        int tweets = user.listedCount;
-                                        int following = user.favouritesCount;
-                                        String avatarUrl = user.profileImageUrl;
+                                saveAccount(username, followers, tweets, following, avatarUrl);
 
-                                        saveAccount(username, followers, tweets, following, avatarUrl);
+                                startActivity(new Intent(getActivity(), MainActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            }
 
-                                        startActivity(new Intent(getActivity(), MainActivity.class)
-                                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                    }
-
-                                    @Override
-                                    public void failure(TwitterException e) {
-                                        Log.e(TAG, "Failed to get account credentials: " + e);
-                                    }
-                                }
-                        );
+                            @Override
+                            public void failure(TwitterException e) {
+                                Log.e(TAG, "Failed to get account credentials: " + e);
+                            }
+                        }
+                );
             }
 
             @Override
@@ -114,22 +123,14 @@ public class TwitterFragment extends Fragment {
                 Log.w(TAG, "Twitter auth request cancelled");
             }
         });
-
-        Button loginButton = (Button) view.findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                twitterLoginButton.performClick();
-            }
-        });
     }
 
     private void saveAccount(String username, int followers, int tweets, int following, String avatarUrl) {
 
-        List<DataSet> statsList = new ArrayList<>();
-        statsList.add(new DataSet("followers", followers));
-        statsList.add(new DataSet("tweets", tweets));
-        statsList.add(new DataSet("following", following));
+        List<Stats> statsList = new ArrayList<>();
+        statsList.add(new Stats("followers", followers));
+        statsList.add(new Stats("tweets", tweets));
+        statsList.add(new Stats("following", following));
 
         Account account = new Account("Twitter", username, statsList, avatarUrl);
 
@@ -148,7 +149,6 @@ public class TwitterFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Pass the activity result to the login button.
-        twitterLoginButton.onActivityResult(requestCode, resultCode,
-                data);
+        mTwitterButton.onActivityResult(requestCode, resultCode, data);
     }
 }

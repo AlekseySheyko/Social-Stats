@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.rest.model.Account;
-import aleksey.sheyko.socialstats.rest.model.DataSet;
+import aleksey.sheyko.socialstats.rest.model.Stats;
 
 public class AccountDataSource {
 
@@ -100,14 +100,14 @@ public class AccountDataSource {
         SQLiteDatabase database = open();
 
         for (Account account : accounts) {
-            ArrayList<DataSet> statsList = new ArrayList<>();
+            ArrayList<Stats> statsList = new ArrayList<>();
             Cursor cursor = database.rawQuery(
                     "SELECT * FROM " + SQLiteHelper.STATS_TABLE +
                             " WHERE ACCOUNT_ID = " + account.getId(), null);
 
             if (cursor.moveToFirst()) {
                 do {
-                    DataSet dataSet = new DataSet(
+                    Stats dataSet = new Stats(
                             getIntFromColumnName(cursor, BaseColumns._ID),
                             getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LABEL),
                             getIntFromColumnName(cursor, SQLiteHelper.COLUMN_VALUE));
@@ -124,7 +124,7 @@ public class AccountDataSource {
         SQLiteDatabase database = open();
         database.beginTransaction();
 
-        for (DataSet dataSet : account.getStatsList()) {
+        for (Stats dataSet : account.getStatsList()) {
             ContentValues updateStatsValues = new ContentValues();
             updateStatsValues.put(SQLiteHelper.COLUMN_VALUE, dataSet.getValue());
             database.update(SQLiteHelper.STATS_TABLE,
@@ -157,7 +157,7 @@ public class AccountDataSource {
         accountValues.put(SQLiteHelper.COLUMN_USER_NAME, account.getUsername());
         long accountID = database.insert(SQLiteHelper.ACCOUNTS_TABLE, null, accountValues);
 
-        for (DataSet dataSet : account.getStatsList()) {
+        for (Stats dataSet : account.getStatsList()) {
             ContentValues statsValues = new ContentValues();
             statsValues.put(SQLiteHelper.COLUMN_LABEL, dataSet.getLabel());
             statsValues.put(SQLiteHelper.COLUMN_VALUE, dataSet.getValue());

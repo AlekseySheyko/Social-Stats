@@ -2,20 +2,20 @@ package aleksey.sheyko.socialstats.rest.model;
 
 import java.io.Serializable;
 
-public class DataSet implements Serializable {
+public class Stats implements Serializable {
     private int mId;
     private String mLabel;
     private int mValue;
 
-    public DataSet() {
+    public Stats() {
     }
 
-    public DataSet(String label, int value) {
+    public Stats(String label, int value) {
         mLabel = label;
         mValue = value;
     }
 
-    public DataSet(int id, String label, int value) {
+    public Stats(int id, String label, int value) {
         mId = id;
         mLabel = label;
         mValue = value;

@@ -7,14 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
-import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
-import aleksey.sheyko.socialstats.database.AccountDataSource;
-import aleksey.sheyko.socialstats.model.Account;
 
 public class InstagramFragment extends Fragment {
 
@@ -47,16 +41,6 @@ public class InstagramFragment extends Fragment {
                 signIn(view);
             }
         });
-
-        // List existing Twitter accounts
-        AccountDataSource dataSource = new AccountDataSource(getActivity());
-        ArrayList<Account> accounts = dataSource.read("Instagram");
-
-        ServiceAdapter adapter = new ServiceAdapter(
-                getActivity(), R.layout.list_item_service, accounts);
-
-        ListView listView = (ListView) view.findViewById(R.id.listview);
-        listView.setAdapter(adapter);
     }
 
     private void signIn(View view) {

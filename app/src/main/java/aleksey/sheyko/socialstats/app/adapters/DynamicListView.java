@@ -16,6 +16,7 @@
 
 package aleksey.sheyko.socialstats.app.adapters;
 
+import android.accounts.Account;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -44,7 +45,6 @@ import java.util.ArrayList;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
-import aleksey.sheyko.socialstats.model.Account;
 
 /**
  * The dynamic listview is an extension of listview that supports cell dragging
@@ -164,16 +164,12 @@ public class DynamicListView extends ListView {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Account currentAccount = mAccounts.get(position);
-                    currentAccount.notifyDataSetChanged();
-
                     Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
                     anim.setDuration(50);
                     getChildAt(position).startAnimation(anim);
 
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            mContext.getAdapter().notifyDataSetChanged();
                         }
                     }, anim.getDuration());
                 }

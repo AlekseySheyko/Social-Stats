@@ -1,30 +1,17 @@
 package aleksey.sheyko.socialstats.app.activities;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-
 import aleksey.sheyko.socialstats.R;
-import aleksey.sheyko.socialstats.app.adapters.AccountAdapter;
-import aleksey.sheyko.socialstats.app.adapters.DynamicListView;
-import aleksey.sheyko.socialstats.database.AccountDataSource;
 
 
 public class MainActivity extends Activity implements OnRefreshListener {
-
-    private AccountDataSource mDataSource;
-    private ArrayList<aleksey.sheyko.socialstats.model.Account> mAccountList;
-
-    private AccountAdapter mAdapter;
 
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -33,37 +20,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AccountManager manager = AccountManager.get(this);
-        for (Account account : manager.getAccountsByType("com.twitter.android.auth.login")) {
-            Log.d("TAG", account.name + " - " + account.type);
-        }
-
-
-        mDataSource = new AccountDataSource(this);
-        mAccountList = mDataSource.read();
-
-        mAdapter = new AccountAdapter(this,
-                R.layout.list_item_account, mAccountList);
-
-        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
-        listView.setAccountList(mAccountList);
-        listView.setAdapter(mAdapter);
-
-        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        mSwipeLayout.setOnRefreshListener(this);
     }
 
-    @Override
-    public void onRefresh() {
+    static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
 
-        updateStats();
-        mSwipeLayout.setRefreshing(false);
-    }
-
-    private void updateStats() {
-//        for (Account account : mAccountList) {
-//            mDataSource.update(account);
-//        }
+    private void pickUserAccount() {
+        String[] accountTypes = new String[]{"com.google"};
+        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+                accountTypes, false, null, null, null, null);
+        startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
     }
 
     @Override
@@ -85,9 +50,5 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
     public SwipeRefreshLayout getSwipeLayout() {
         return mSwipeLayout;
-    }
-
-    public AccountAdapter getAdapter() {
-        return mAdapter;
     }
 }

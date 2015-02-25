@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -28,9 +27,6 @@ import java.util.List;
 
 import aleksey.sheyko.socialstats.R;
 import aleksey.sheyko.socialstats.app.activities.MainActivity;
-import aleksey.sheyko.socialstats.app.adapters.ServiceAdapter;
-import aleksey.sheyko.socialstats.database.AccountDataSource;
-import aleksey.sheyko.socialstats.model.Account;
 import aleksey.sheyko.socialstats.model.Stats;
 import io.fabric.sdk.android.Fabric;
 
@@ -71,15 +67,6 @@ public class TwitterFragment extends Fragment {
     }
 
     private void populateList(View v) {
-        // List existing Twitter accounts
-        AccountDataSource dataSource = new AccountDataSource(getActivity());
-        ArrayList<Account> accounts = dataSource.read("Twitter");
-
-        ServiceAdapter adapter = new ServiceAdapter(
-                getActivity(), R.layout.list_item_service, accounts);
-
-        ListView listView = (ListView) v.findViewById(R.id.listview);
-        listView.setAdapter(adapter);
     }
 
     public String getAccessToken(View v) {
@@ -138,11 +125,6 @@ public class TwitterFragment extends Fragment {
         statsList.add(new Stats("followers", followers));
         statsList.add(new Stats("tweets", tweets));
         statsList.add(new Stats("following", following));
-
-        Account account = new Account("Twitter", username, statsList, avatarUrl, accessToken);
-
-        AccountDataSource dataSource = new AccountDataSource(getActivity());
-        dataSource.create(account);
     }
 
     @Override

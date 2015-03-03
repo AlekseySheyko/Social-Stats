@@ -1,13 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/in__bg_color"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@color/instagram_bg"
               style="@style/SocialContainer">
-
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webview"
-        android:visibility="gone"/>
 
     <include layout="@layout/layout_service"/>
 
-</LinearLayout>
+</FrameLayout>

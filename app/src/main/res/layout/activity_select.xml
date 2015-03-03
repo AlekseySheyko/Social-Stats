@@ -3,7 +3,7 @@
     android:id="@+id/gridview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:numColumns="@integer/num_columns"
+    android:numColumns="2"
     android:orientation="vertical"
     >
 
@@ -14,14 +14,12 @@
         <ImageView
             android:id="@+id/twitter_btn"
             android:src="@drawable/ic_twitter"
-            android:contentDescription="@string/desc_twitter"
             android:onClick="addAccount"
             style="@style/ImageAccountType"/>
 
         <ImageView
             android:id="@+id/instagram_btn"
             android:src="@drawable/ic_instagram"
-            android:contentDescription="@string/desc_instagram"
             android:onClick="addAccount"
             style="@style/ImageAccountType"/>
     </TableRow>
@@ -33,14 +31,12 @@
         <ImageView
             android:id="@+id/facebook_btn"
             android:src="@drawable/ic_facebook"
-            android:contentDescription="@string/desc_facebook"
             android:onClick="addAccount"
             style="@style/ImageAccountType"/>
 
         <ImageView
             android:id="@+id/google_btn"
             android:src="@drawable/ic_google"
-            android:contentDescription="@string/desc_google"
             android:onClick="addAccount"
             style="@style/ImageAccountType"/>
     </TableRow>

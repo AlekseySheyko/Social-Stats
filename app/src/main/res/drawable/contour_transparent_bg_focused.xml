@@ -4,7 +4,7 @@
     <solid android:color="#15ffffff"/>
     <stroke
         android:width="2dp"
-        android:color="@color/stroke"/>
+        android:color="@color/listview_stroke"/>
     <corners android:radius="5dp"/>
 
 </shape>

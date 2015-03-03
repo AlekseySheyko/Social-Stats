@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/list_text_size"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:text="AlekseySheyko"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="8dp"

@@ -5,10 +5,9 @@
     <color name="list_item_focused">#ffd1d0d2</color>
     <color name="list_item_pressed">#ffdbdadc</color>
     <color name="selected_item_border">#aba9ac</color>
-    <color name="white">#fff</color>
-    <color name="tw__bg_color">#339ae3</color>
-    <color name="in__bg_color">#444</color>
-    <color name="fb__bg_color">#4e71a8</color>
-    <color name="g__bg_color">#e3411f</color>
-    <color name="stroke">#7fffffff</color>
+    <color name="twitter_bg">#339ae3</color>
+    <color name="instagram_bg">#444</color>
+    <color name="facebook_bg">#4e71a8</color>
+    <color name="google_bg">#e3411f</color>
+    <color name="listview_stroke">#7fffffff</color>
 </resources>

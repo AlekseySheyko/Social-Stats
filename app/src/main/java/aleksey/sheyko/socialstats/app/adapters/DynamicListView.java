@@ -28,13 +28,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -149,7 +147,8 @@ public class DynamicListView extends ListView {
 
                     updateNeighborViewsForID(mMobileItemId);
 
-                    mContext.getSwipeLayout().setEnabled(false);
+                    // TODO Implement swipe refresh gesture
+                    // mContext.getSwipeLayout().setEnabled(false);
 
                     return true;
                 }
@@ -164,14 +163,15 @@ public class DynamicListView extends ListView {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
-                    anim.setDuration(50);
-                    getChildAt(position).startAnimation(anim);
-
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                        }
-                    }, anim.getDuration());
+//                    TODO Create proper list item animation
+//                    Animation anim = new Rotate3dAnimation(0, -180, Animation.ZORDER_NORMAL, Animation.ZORDER_NORMAL, 3, false);
+//                    anim.setDuration(50);
+//                    getChildAt(position).startAnimation(anim);
+//
+//                    new Handler().postDelayed(new Runnable() {
+//                        public void run() {
+//                        }
+//                    }, anim.getDuration());
                 }
             };
 
@@ -460,7 +460,8 @@ public class DynamicListView extends ListView {
                     setEnabled(true);
                     invalidate();
 
-                    mContext.getSwipeLayout().setEnabled(true);
+                    // TODO
+                    // mContext.getSwipeLayout().setEnabled(true);
                 }
             });
             hoverViewAnimator.start();
